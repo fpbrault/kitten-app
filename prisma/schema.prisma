@@ -18,7 +18,7 @@ model Post {
 
 model Kitten {
   id       Int     @id @default(autoincrement())
-  name     String
+  name     String 
   content  String?
   litter   Litter? @relation(fields: [litterId], references: [id])
   litterId Int?
@@ -26,7 +26,7 @@ model Kitten {
 
 model Litter {
   id          Int      @id @default(autoincrement())
-  name        String
+  name        String @unique
   description String?
   Kitten      Kitten[]
 }

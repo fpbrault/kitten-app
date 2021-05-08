@@ -1,23 +1,25 @@
-import {PrismaClient} from "@prisma/client";
+import { PrismaClient } from '@prisma/client';
+declare global {
+    namespace NodeJS {
+        interface Global {
+            prisma: any;
+        }
+    }
+}
+// PrismaClient is attached to the `global` object in development to prevent
+// exhausting your database connection limit.
+//
+// Learn more:
+// https://pris.ly/d/help/next-js-best-practices
 
-import Adapters from "next-auth/adapters";
+let prisma: PrismaClient;
 
-const prismaClientPropertyName = `__prevent-name-collision__prisma`;
-type GlobalThisWithPrismaClient = typeof globalThis & {
-	[prismaClientPropertyName]: PrismaClient;
-};
-
-const getPrismaClient = () => {
-	if (process.env.NODE_ENV === `production`) {
-		return new PrismaClient();
-	} else {
-		const newGlobalThis = globalThis as GlobalThisWithPrismaClient;
-		if (!newGlobalThis[prismaClientPropertyName]) {
-			newGlobalThis[prismaClientPropertyName] = new PrismaClient();
-		}
-		return newGlobalThis[prismaClientPropertyName];
-	}
-};
-const prisma= getPrismaClient();
-
-export default Adapters.Prisma.Adapter({prisma});
+if (process.env.NODE_ENV === 'production') {
+    prisma = new PrismaClient();
+} else {
+    if (!global.prisma) {
+        global.prisma = new PrismaClient();
+    }
+    prisma = global.prisma;
+}
+export default prisma;
