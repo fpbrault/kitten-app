@@ -1,5 +1,5 @@
 module.exports = {
     images: {
-      domains: ['pyxis.nymag.com'],
-    },
-  }
+        domains: ['pyxis.nymag.com']
+    }
+};

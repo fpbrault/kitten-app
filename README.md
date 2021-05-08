@@ -29,7 +29,8 @@ In order to get this example to work, you need to configure the [GitHub](https:/
 
 #### Configuring the GitHub authentication provider
 
-<details><summary>Expand to learn how you can configure the GitHub authentication provider</summary>
+<details>
+<summary>Expand to learn how you can configure the GitHub authentication provider</summary>
 
 First, log into your [GitHub](https://github.com/) account.
 
@@ -163,12 +164,12 @@ Here are some examples for some Prisma Client operations:
 
 ```ts
 const profile = await prisma.profile.create({
-  data: {
-    bio: "Hello World",
-    user: {
-      connect: { email: "alice@prisma.io" },
-    },
-  },
+    data: {
+        bio: 'Hello World',
+        user: {
+            connect: { email: 'alice@prisma.io' }
+        }
+    }
 });
 ```
 
@@ -176,15 +177,15 @@ const profile = await prisma.profile.create({
 
 ```ts
 const user = await prisma.user.create({
-  data: {
-    email: "john@prisma.io",
-    name: "John",
-    profile: {
-      create: {
-        bio: "Hello World",
-      },
-    },
-  },
+    data: {
+        email: 'john@prisma.io',
+        name: 'John',
+        profile: {
+            create: {
+                bio: 'Hello World'
+            }
+        }
+    }
 });
 ```
 
@@ -192,14 +193,14 @@ const user = await prisma.user.create({
 
 ```ts
 const userWithUpdatedProfile = await prisma.user.update({
-  where: { email: "alice@prisma.io" },
-  data: {
-    profile: {
-      update: {
-        bio: "Hello Friends",
-      },
-    },
-  },
+    where: { email: 'alice@prisma.io' },
+    data: {
+        profile: {
+            update: {
+                bio: 'Hello Friends'
+            }
+        }
+    }
 });
 ```
 
@@ -211,7 +212,6 @@ In the application code, you can access the new endpoint via `fetch` operations 
 
 ## Next steps
 
-- Check out the [Prisma docs](https://www.prisma.io/docs)
-- Share your feedback in the [`prisma2`](https://prisma.slack.com/messages/CKQTGR6T0/) channel on the [Prisma Slack](https://slack.prisma.io/)
-- Create issues and ask questions on [GitHub](https://github.com/prisma/prisma/)
-
+-   Check out the [Prisma docs](https://www.prisma.io/docs)
+-   Share your feedback in the [`prisma2`](https://prisma.slack.com/messages/CKQTGR6T0/) channel on the [Prisma Slack](https://slack.prisma.io/)
+-   Create issues and ask questions on [GitHub](https://github.com/prisma/prisma/)

@@ -1,56 +1,54 @@
-import React from "react";
-import { GetStaticProps } from "next";
-import Layout from "../components/Layout";
-import Post, { PostProps } from "../components/Post";
-import prisma from '../lib/prisma'
+import React from 'react';
+import { GetStaticProps } from 'next';
+import Layout from '../components/Layout';
+import Post, { PostProps } from '../components/Post';
+import prisma from '../lib/prisma';
 
 export const getStaticProps: GetStaticProps = async () => {
-  const feed = await prisma.post.findMany({
-    where: {
-      published: true,
-    },
-    include: {
-      author: {
-        select: {
-          name: true,
+    const feed = await prisma.post.findMany({
+        where: {
+            published: true
         },
-      },
-    },
-  });
-  return {
-    props: { feed },
-  };
+        include: {
+            author: {
+                select: {
+                    name: true
+                }
+            }
+        }
+    });
+    return {
+        props: { feed }
+    };
 };
 
 type Props = {
-  feed: PostProps[];
+    feed: PostProps[];
 };
 
-const Index: React.FC<Props> = (props) => {
-  return (
-    <Layout>
-      <div className="page">
-        <p className="text-4xl font-bold">Public Feed</p>
-        <main>
-        
-        </main>
-      </div>
-      <style jsx>{`
-        .post {
-          background: white;
-          transition: box-shadow 0.1s ease-in;
-        }
+const Index: React.FC<Props> = () => {
+    return (
+        <Layout>
+            <div className="page">
+                <p className="text-4xl font-bold">Public Feed</p>
+                <main></main>
+            </div>
+            <style jsx>{`
+                .post {
+                    background: white;
+                    transition: box-shadow 0.1s ease-in;
+                }
 
-        .post:hover {
-          box-shadow: 1px 1px 3px #aaa;
-        }
+                .post:hover {
+                    box-shadow: 1px 1px 3px #aaa;
+                }
 
-        .post + .post {
-          margin-top: 2rem;
-        }
-      `}</style>
-    </Layout>
-  );
+                .post + .post {
+                    margin-top: 2rem;
+                }
+            `}</style>
+        </Layout>
+    );
 };
 
 export default Index;
