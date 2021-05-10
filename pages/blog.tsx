@@ -1,10 +1,10 @@
 import React from 'react';
 import Layout from '../components/Layout';
-import { GetStaticProps } from 'next';
+import { GetServerSideProps } from 'next';
 import Post, { PostProps } from '../components/Post';
 import prisma from '../lib/prisma';
 
-export const getStaticProps: GetStaticProps = async () => {
+export const getServerSideProps: GetServerSideProps = async () => {
     const feed = await prisma.post.findMany({
         where: {
             published: true
@@ -30,7 +30,6 @@ const Blog: React.FC<Props> = (props) => {
     return (
         <Layout>
             <div className="page">
-                <h1>Public Feed</h1>
                 <main>
                     {props.feed.map((post) => (
                         <div key={post.id} className="post">
