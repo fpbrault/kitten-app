@@ -1,5 +1,11 @@
 import { PrismaClient } from '@prisma/client';
-
+declare global {
+    namespace NodeJS {
+        interface Global {
+            prisma: any;
+        }
+    }
+}
 // PrismaClient is attached to the `global` object in development to prevent
 // exhausting your database connection limit.
 //
