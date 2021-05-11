@@ -6,11 +6,15 @@ import Router from 'next/router';
 import { LitterProps } from '../../components/Litter';
 import prisma from '../../lib/prisma';
 import { useSession } from 'next-auth/client';
+import Kitten from 'components/Kitten';
 
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
     const litter = await prisma.litter.findUnique({
         where: {
             id: Number(params?.id) || -1
+        },
+        include: {
+            Kitten: {}
         }
     });
     return {
@@ -44,31 +48,21 @@ const Litter: React.FC<LitterProps> = (props) => {
 
     return (
         <Layout>
-            <div className="bg-blue-100 border-2 border-blue-500 rounded shadow">
-                <h2>{name}</h2>
-                <ReactMarkdown children={props.description} />
+            <div className="flex flex-col justify-center p-4 mt-4 align-center">
+                <div className="mx-auto text-center">
+                    <div className="text-4xl font-bold">{name}</div>
+                    <div>
+                        <ReactMarkdown children={props.description} />
+                    </div>
+                </div>
+                <main>
+                    {props.Kitten.map((kitten) => (
+                        <div key={kitten.id} className="kitten">
+                            <Kitten kitten={kitten} />
+                        </div>
+                    ))}
+                </main>
             </div>
-            <style jsx>{`
-                .page {
-                    background: white;
-                    padding: 2rem;
-                }
-
-                .actions {
-                    margin-top: 2rem;
-                }
-
-                button {
-                    background: #ececec;
-                    border: 0;
-                    border-radius: 0.125rem;
-                    padding: 1rem 2rem;
-                }
-
-                button + button {
-                    margin-left: 1rem;
-                }
-            `}</style>
         </Layout>
     );
 };

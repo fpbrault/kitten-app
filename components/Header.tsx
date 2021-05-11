@@ -10,34 +10,33 @@ const Header: React.FC = () => {
     const [session, loading] = useSession();
 
     let left = (
-        <div className="left">
+        <div className="flex justify-center pl-4 -mb-px shadow-md left">
             <Link href="/">
-                <a className="bold" data-active={isActive('/')}>
+                <a
+                    className="py-3 mr-8 text-xs font-bold tracking-wide no-underline uppercase "
+                    data-active={isActive('/')}>
                     Home
                 </a>
             </Link>
             <Link href="/blog">
-                <a className="bold" data-active={isActive('/blog')}>
+                <a
+                    className="py-3 mr-8 text-xs font-bold tracking-wide no-underline uppercase"
+                    data-active={isActive('/blog')}>
                     Blog
                 </a>
             </Link>
+            <Link href="/kittens">
+                <a
+                    className="py-3 mr-8 text-xs font-bold tracking-wide no-underline uppercase "
+                    data-active={isActive('/kittens')}>
+                    Kittens
+                </a>
+            </Link>
             <style jsx>{`
-                .bold {
-                    font-weight: bold;
-                }
-
-                a {
-                    text-decoration: none;
-                    color: #000;
-                    display: inline-block;
-                }
-
-                .left a[data-active='true'] {
-                    color: gray;
-                }
-
-                a + a {
-                    margin-left: 1rem;
+                .left a[data-active='false'] {
+                    color: black;
+                    border-bottom-width: 2px;
+                    border-color: white;
                 }
             `}</style>
         </div>
@@ -53,25 +52,6 @@ const Header: React.FC = () => {
                         Feed
                     </a>
                 </Link>
-                <style jsx>{`
-                    .bold {
-                        font-weight: bold;
-                    }
-
-                    a {
-                        text-decoration: none;
-                        color: #000;
-                        display: inline-block;
-                    }
-
-                    .left a[data-active='true'] {
-                        color: gray;
-                    }
-
-                    a + a {
-                        margin-left: 1rem;
-                    }
-                `}</style>
             </div>
         );
         right = (
@@ -90,29 +70,10 @@ const Header: React.FC = () => {
         right = (
             <div className="right">
                 <Link href="/api/auth/signin">
-                    <a data-active={isActive('/signup')}>Log in</a>
+                    <a className="px-1 mx-1" data-active={isActive('/signup')}>
+                        Log in
+                    </a>
                 </Link>
-                <style jsx>{`
-                    a {
-                        text-decoration: none;
-                        color: #000;
-                        display: inline-block;
-                    }
-
-                    a + a {
-                        margin-left: 1rem;
-                    }
-
-                    .right {
-                        margin-left: auto;
-                    }
-
-                    .right a {
-                        border: 1px solid black;
-                        padding: 0.5rem 1rem;
-                        border-radius: 3px;
-                    }
-                `}</style>
             </div>
         );
     }
@@ -133,25 +94,6 @@ const Header: React.FC = () => {
                 <Link href="/drafts">
                     <a data-active={isActive('/drafts')}>My drafts</a>
                 </Link>
-                <style jsx>{`
-                    .bold {
-                        font-weight: bold;
-                    }
-
-                    a {
-                        text-decoration: none;
-                        color: #000;
-                        display: inline-block;
-                    }
-
-                    .left a[data-active='true'] {
-                        color: gray;
-                    }
-
-                    a + a {
-                        margin-left: 1rem;
-                    }
-                `}</style>
             </div>
         );
         right = (
@@ -167,52 +109,14 @@ const Header: React.FC = () => {
                 <button onClick={() => signOut()}>
                     <a>Log out</a>
                 </button>
-                <style jsx>{`
-                    a {
-                        text-decoration: none;
-                        color: #000;
-                        display: inline-block;
-                    }
-
-                    p {
-                        display: inline-block;
-                        font-size: 13px;
-                        padding-right: 1rem;
-                    }
-
-                    a + a {
-                        margin-left: 1rem;
-                    }
-
-                    .right {
-                        margin-left: auto;
-                    }
-
-                    .right a {
-                        border: 1px solid black;
-                        padding: 0.5rem 1rem;
-                        border-radius: 3px;
-                    }
-
-                    button {
-                        border: none;
-                    }
-                `}</style>
             </div>
         );
     }
 
     return (
-        <nav>
+        <nav className="fixed z-30 flex items-center justify-between w-full bg-blue-600 shadow-md h-5vh align-center">
             {left}
             {right}
-            <style jsx>{`
-                nav {
-                    display: flex;
-                    padding: 2rem;
-                    align-items: center;
-                }
-            `}</style>
         </nav>
     );
 };
