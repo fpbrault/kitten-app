@@ -7,6 +7,7 @@ import { LitterProps } from '../../components/Litter';
 import prisma from '../../lib/prisma';
 import { useSession } from 'next-auth/client';
 import Kitten from 'components/Kitten';
+import { KittenProps } from '../../components/Kitten';
 
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
     const litter = await prisma.litter.findUnique({
@@ -36,13 +37,18 @@ async function deletePost(id: number): Promise<void> {
     await Router.push('/');
 }
 
-const Litter: React.FC<LitterProps> = (props) => {
+type Props = {
+    LitterProps: LitterProps;
+    Kitten: KittenProps[];
+};
+
+const Litter: React.FC<Props> = (props) => {
     const [session, loading] = useSession();
     if (loading) {
         return <div>Authenticating ...</div>;
     }
-    let name = props.name;
-    if (!props.name) {
+    let name = props.LitterProps.name;
+    if (!props.LitterProps.name) {
         name = `${name} (Draft)`;
     }
 
@@ -52,7 +58,7 @@ const Litter: React.FC<LitterProps> = (props) => {
                 <div className="mx-auto text-center">
                     <div className="text-4xl font-bold">{name}</div>
                     <div>
-                        <ReactMarkdown children={props.description} />
+                        <ReactMarkdown children={props.LitterProps.description} />
                     </div>
                 </div>
                 <main>

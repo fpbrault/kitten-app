@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactMarkdown from 'react-markdown';
 import Link from 'next/link';
+import { KittenPost } from '.prisma/client';
 
 export type KittenProps = {
     id: number;
@@ -11,7 +12,7 @@ export type KittenProps = {
     };
     litterId: number;
     content: string;
-    posts: Array<string>;
+    posts: Array<KittenPost>;
     image: string;
 };
 

@@ -45,11 +45,7 @@ const Kitten: React.FC<KittenProps> = (props) => {
         return <div>Authenticating ...</div>;
     }
     const userHasValidSession = Boolean(session);
-    let name = props.name;
-    if (!props.name) {
-        name = `${name} (Draft)`;
-    }
-
+    console.log(props);
     return (
         <Layout>
             <div className="z-20 flex justify-center w-full bg-white h-20vh">
