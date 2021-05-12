@@ -22,20 +22,20 @@ model Kitten {
   content  String?
   litter   Litter? @relation(fields: [litterId], references: [id])
   litterId Int?
-  posts    KittenPost[]
   image   String?
+  posts    KittenPost[]
 }
 
 model KittenPost {
   id       Int     @id @default(autoincrement())
-  kittenId Int?
+  kittenId Int
   name     String 
   content  String?
   image   String?
   published Boolean @default(false)
   createdAt     DateTime  @default(now()) @map(name: "created_at")
   updatedAt     DateTime  @updatedAt @map(name: "updated_at")
-  kitten   Kitten? @relation(fields: [kittenId], references: [id])
+  kitten   Kitten @relation(fields: [kittenId], references: [id])
 }
 
 model Litter {

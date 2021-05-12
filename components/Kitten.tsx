@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactMarkdown from 'react-markdown';
 import Link from 'next/link';
-import { KittenPostProps } from './KittenPost';
 
 export type KittenProps = {
     id: number;
@@ -12,8 +11,11 @@ export type KittenProps = {
     };
     litterId: number;
     content: string;
-    posts: Array<KittenPostProps>;
     image: string;
+    kittenPosts: {
+        name: string;
+        id: number;
+    };
 };
 
 const Kitten: React.FC<{ kitten: KittenProps }> = ({ kitten }) => {
@@ -21,6 +23,7 @@ const Kitten: React.FC<{ kitten: KittenProps }> = ({ kitten }) => {
     return (
         <Link href={'/kitten/' + kitten.id}>
             <div className="flex flex-col items-center p-4 m-8 mx-auto transition-colors bg-white border rounded shadow sm:w-1/4 hover:bg-blue-300">
+                {JSON.stringify(kitten)}
                 <img
                     src={kitten.image}
                     className="object-cover w-40 h-40 rounded-full"
@@ -34,7 +37,7 @@ const Kitten: React.FC<{ kitten: KittenProps }> = ({ kitten }) => {
                             <div className="pl-1 font-bold hover:text-blue-600">{litterName}</div>
                         </Link>
                     </div>
-                    <ReactMarkdown children={kitten.content} />
+                    <ReactMarkdown>{kitten.content}</ReactMarkdown>
                 </div>
             </div>
         </Link>

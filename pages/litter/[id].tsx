@@ -3,10 +3,9 @@ import { GetServerSideProps } from 'next';
 import ReactMarkdown from 'react-markdown';
 import Layout from '../../components/Layout';
 import Router from 'next/router';
-import { LitterProps } from '../../components/Litter';
 import prisma from '../../lib/prisma';
 import { useSession } from 'next-auth/client';
-import Kitten from 'components/Kitten';
+import Kitten from '../../components/Kitten';
 import { KittenProps } from '../../components/Kitten';
 
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
@@ -56,7 +55,7 @@ const Litter: React.FC<Props> = (props) => {
                 <div className="mx-auto text-center">
                     <div className="text-4xl font-bold">{props.name}</div>
                     <div>
-                        <ReactMarkdown children={props.description} />
+                        <ReactMarkdown>{props.description}</ReactMarkdown>
                     </div>
                 </div>
                 <main>

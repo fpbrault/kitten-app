@@ -26,7 +26,7 @@ const KittenPost: React.FC<{ post: KittenPostProps }> = ({ post }) => {
                         {day}
                     </span>
                     <p className="text-base text-grey-darker">
-                        <ReactMarkdown children={post.content.slice(0, 200) + '...'} />
+                        <ReactMarkdown>{post.content.slice(0, 200) + '...'}</ReactMarkdown>
                     </p>
                     <a className="px-4 mx-auto mt-4 text-center text-gray-500 transition-colors bg-transparent border border-gray-400 rounded cursor-pointer h-7 focus:outline-none hover:border-transparent hover:bg-blue-500 hover:text-white">
                         READ MORE

@@ -5,7 +5,7 @@ import Router from 'next/router';
 import { KittenProps } from '../../components/Kitten';
 import prisma from '../../lib/prisma';
 import { useSession } from 'next-auth/client';
-import KittenPost, { KittenPostProps } from 'components/KittenPost';
+import { KittenPostProps } from '../../components/KittenPost';
 
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
     const kittendata = await prisma.kitten.findUnique({
@@ -16,7 +16,9 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
             litter: {
                 select: { name: true, id: true }
             },
-            posts: true
+            posts: {
+                select: { name: true, id: true }
+            }
         }
     });
     const kittenpostsdata = await prisma.kittenPost.findMany({
@@ -58,6 +60,7 @@ const Kitten: React.FC<Props> = (props) => {
     const userHasValidSession = Boolean(session);
     return (
         <Layout>
+            {JSON.stringify(props)}
             <div className="z-20 flex justify-center w-full bg-white h-20vh">
                 <div className="flex my-auto">
                     <img
@@ -108,9 +111,9 @@ const Kitten: React.FC<Props> = (props) => {
             <div className="overflow-auto bg-gray-100 h-75vh ">
                 <div className="flex justify-center pt-4">
                     <div className="flex flex-col flex-wrap w-5/6 mx-auto">
-                        {props.kittenPosts.map((post) => (
+                        {/*                         {props.kitten.posts.map((post) => (
                             <KittenPost key={post.id} post={post} />
-                        ))}
+                        ))} */}
                     </div>
                 </div>
             </div>

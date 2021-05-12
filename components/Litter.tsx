@@ -24,7 +24,7 @@ const Litter: React.FC<{ litter: LitterProps }> = ({ litter }) => {
     return (
         <div onClick={() => Router.push('/litter/[id]', `/litter/${litter.id}`)}>
             <h2>{litter.name}</h2>
-            <ReactMarkdown children={litter.description} />
+            <ReactMarkdown>{litter.description}</ReactMarkdown>
             <style jsx>{`
                 div {
                     color: inherit;
