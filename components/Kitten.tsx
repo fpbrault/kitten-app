@@ -12,7 +12,7 @@ export type KittenProps = {
     };
     litterId: number;
     content: string;
-    posts: Array<KittenPostProps>;
+    posts: any;
     image: string;
 };
 
