@@ -1,0 +1,12 @@
+-- DropForeignKey
+ALTER TABLE "KittenPost" DROP CONSTRAINT "KittenPost_kittenId_fkey";
+
+-- AlterTable
+ALTER TABLE "Post" ADD COLUMN     "image" TEXT,
+ADD COLUMN     "kittenId" INTEGER,
+ADD COLUMN     "type" TEXT NOT NULL DEFAULT E'blog',
+ADD COLUMN     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+ADD COLUMN     "updated_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP;
+
+-- AddForeignKey
+ALTER TABLE "Post" ADD FOREIGN KEY ("kittenId") REFERENCES "Kitten"("id") ON DELETE SET NULL ON UPDATE CASCADE;

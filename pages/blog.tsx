@@ -7,7 +7,8 @@ import prisma from '../lib/prisma';
 export const getServerSideProps: GetServerSideProps = async () => {
     const feed = await prisma.post.findMany({
         where: {
-            published: true
+            published: true,
+            type: 'blog'
         },
         include: {
             author: {
@@ -29,29 +30,13 @@ type Props = {
 const Blog: React.FC<Props> = (props) => {
     return (
         <Layout>
-            <div className="page">
-                <main>
-                    {props.feed.map((post) => (
-                        <div key={post.id} className="post">
-                            <Post post={post} />
-                        </div>
-                    ))}
-                </main>
+            <div className="overflow-auto bg-gray-100 h-95vh ">
+                {props.feed.map((post) => (
+                    <div key={post.id} className="post">
+                        <Post post={post} />
+                    </div>
+                ))}
             </div>
-            <style jsx>{`
-                .post {
-                    background: white;
-                    transition: box-shadow 0.1s ease-in;
-                }
-
-                .post:hover {
-                    box-shadow: 1px 1px 3px #aaa;
-                }
-
-                .post + .post {
-                    margin-top: 2rem;
-                }
-            `}</style>
         </Layout>
     );
 };

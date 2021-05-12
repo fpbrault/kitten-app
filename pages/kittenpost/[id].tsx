@@ -1,41 +1,33 @@
 import React from 'react';
 import { GetServerSideProps } from 'next';
 import Layout from '../../components/Layout';
-
 import Router from 'next/router';
-import Link from 'next/link';
 import { KittenProps } from '../../components/Kitten';
 import prisma from '../../lib/prisma';
 import { useSession } from 'next-auth/client';
-import KittenPost from '../../components/KittenPost';
+import KittenPost, { KittenPostProps } from '../../components/KittenPost';
 
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
-    const kitten = await prisma.kitten.findUnique({
+    const kittenPost = await prisma.kittenPost.findUnique({
         where: {
             id: Number(params?.id) || -1
-        },
-        include: {
-            litter: {
-                select: { name: true, id: true }
-            },
-            posts: { where: { published: true } }
         }
     });
 
     return {
-        props: { kitten }
+        props: { kittenPost }
     };
 };
 
-async function publishPost(id: number): Promise<void> {
+async function publishKittenPost(id: number): Promise<void> {
     await fetch(`/api/publish/${id}`, {
         method: 'PUT'
     });
     await Router.push('/');
 }
 
-async function deletePost(id: number): Promise<void> {
-    await fetch(`/api/post/${id}`, {
+async function deleteKittenPost(id: number): Promise<void> {
+    await fetch(`/api/kittenpost/${id}`, {
         method: 'DELETE'
     });
     await Router.push('/');
@@ -43,6 +35,7 @@ async function deletePost(id: number): Promise<void> {
 
 type Props = {
     kitten: KittenProps;
+    kittenPosts: KittenPostProps[];
 };
 
 const Kitten: React.FC<Props> = (props) => {
@@ -62,27 +55,31 @@ const Kitten: React.FC<Props> = (props) => {
                     />
                     <div className="">
                         <div className="flex items-center">
-                            <div className="block text-3xl font-light leading-relaxed text-gray-700">
+                            <h2 className="block text-3xl font-light leading-relaxed text-gray-700">
                                 {props.kitten.name}
-                            </div>
-                            {userHasValidSession ? (
-                                <>
-                                    <a className="px-3 ml-3 font-semibold text-center text-white bg-transparent bg-blue-500 border border-transparent rounded outline-none cursor-pointer h-7 hover:bg-blue-600">
-                                        Add post
-                                    </a>
-
-                                    <a className="px-3 ml-3 font-semibold text-center text-gray-500 bg-transparent border border-gray-400 rounded cursor-pointer h-7 focus:outline-none hover:border-transparent hover:bg-blue-500 hover:text-white">
-                                        Edit
-                                    </a>
-                                </>
-                            ) : null}
+                            </h2>
+                            <a className="px-3 ml-3 font-semibold text-center text-white bg-transparent bg-blue-500 border border-transparent rounded outline-none cursor-pointer h-7 hover:bg-blue-600">
+                                Add post
+                            </a>
+                            <a className="px-3 ml-3 font-semibold text-center text-gray-500 bg-transparent border border-gray-400 rounded cursor-pointer h-7 focus:outline-none hover:border-transparent hover:bg-blue-500 hover:text-white">
+                                Edit
+                            </a>
                         </div>
+                        <br />
                         <div className="">
-                            <Link href={'/litter/' + props.kitten.litter?.id}>
-                                <div className="pl-1 font-bold hover:text-blue-600">
+                            <div className="grid grid-cols-2 gap-1">
+                                Litter:
+                                <div
+                                    onClick={() =>
+                                        Router.push(
+                                            '/litter/[id]',
+                                            `/litter/${props.kitten.litter?.id}`
+                                        )
+                                    }
+                                    className="font-bold hover:text-blue-600">
                                     {props?.kitten.litter?.name || 'Unknown litter'}
                                 </div>
-                            </Link>
+                            </div>
                             <span className="text-base">{props?.kitten.content}</span>
                         </div>
                     </div>

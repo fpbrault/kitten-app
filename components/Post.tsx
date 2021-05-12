@@ -1,32 +1,59 @@
 import React from 'react';
-import Router from 'next/router';
+import Link from 'next/link';
 import ReactMarkdown from 'react-markdown';
 
 export type PostProps = {
     id: number;
     title: string;
+    content: string;
+    image: string;
+    kittenId: number;
+    type: string;
+    published: boolean;
+    createdAt: Date;
+    updatedAt: Date;
     author: {
         name: string;
         email: string;
     } | null;
-    content: string;
-    published: boolean;
+    kitten: {
+        name: string;
+        image: string;
+    } | null;
 };
 
 const Post: React.FC<{ post: PostProps }> = ({ post }) => {
     const authorName = post.author ? post.author.name : 'Unknown author';
+    let day = new Date(post.createdAt).toDateString();
     return (
-        <div onClick={() => Router.push('/post/[id]', `/post/${post.id}`)}>
-            <h2>{post.title}</h2>
-            <small>By {authorName}</small>
-            <ReactMarkdown>{post.content}</ReactMarkdown>
-            <style jsx>{`
-                div {
-                    color: inherit;
-                    padding: 2rem;
-                }
-            `}</style>
-        </div>
+        <>
+            <div className="flex flex-col items-center max-w-3xl mx-auto my-4 text-center bg-white rounded shadow-lg">
+                {post?.image ? (
+                    <img
+                        className="object-cover w-screen/2 h-screen/2"
+                        src={post?.image}
+                        alt="Sunset in the mountains"
+                    />
+                ) : null}
+                <div className="flex flex-col flex-wrap content-between px-6 py-4">
+                    <div className="mb-2 text-xl font-bold">{post.title}</div>
+                    <div className="mb-2 text-lg font-thin">
+                        By {authorName || 'Unknown author'}
+                    </div>
+                    <span className="inline-block py-1 text-sm font-semibold rounded-full bg-grey-lighter text-grey-darker">
+                        {day}
+                    </span>
+                    <p className="text-base text-grey-darker">
+                        <ReactMarkdown>{post.content.slice(0, 200) + '...'}</ReactMarkdown>
+                    </p>
+                    <Link href={'/post/' + post.id}>
+                        <a className="px-4 mx-auto mt-4 text-center text-gray-500 transition-colors bg-transparent border border-gray-400 rounded cursor-pointer h-7 focus:outline-none hover:border-transparent hover:bg-blue-500 hover:text-white">
+                            READ MORE
+                        </a>
+                    </Link>
+                </div>
+            </div>
+        </>
     );
 };
 

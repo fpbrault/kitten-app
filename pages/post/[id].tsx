@@ -15,7 +15,8 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
         include: {
             author: {
                 select: { name: true, email: true }
-            }
+            },
+            kitten: true
         }
     });
     return {
@@ -51,38 +52,49 @@ const Post: React.FC<PostProps> = (props) => {
 
     return (
         <Layout>
-            <div>
-                <h2>{title}</h2>
-                <p>By {props?.author?.name || 'Unknown author'}</p>
-                <ReactMarkdown>{props.content}</ReactMarkdown>
-                {!props.published && userHasValidSession && postBelongsToUser && (
-                    <button onClick={() => publishPost(props.id)}>Publish</button>
-                )}
-                {userHasValidSession && postBelongsToUser && (
-                    <button onClick={() => deletePost(props.id)}>Delete</button>
-                )}
+            <div className="overflow-auto bg-gray-100 h-95vh ">
+                <div className="flex flex-col items-center max-w-4xl mx-auto my-4 text-center bg-white rounded shadow-lg">
+                    {props?.image ? (
+                        <img
+                            className="object-cover w-screen/2 h-screen/2"
+                            src={props?.image}
+                            alt="Sunset in the mountains"
+                        />
+                    ) : null}
+                    <div className="my-2 text-xl font-bold">{title}</div>
+                    <div className="mb-2 text-lg font-thin">
+                        By {props?.author?.name || 'Unknown author'}
+                    </div>
+                    <div className="mb-2 text-lg font-thin">
+                        {props?.kitten ? (
+                            <img
+                                src={props?.kitten?.image}
+                                className="object-cover w-8 h-8 rounded-full"
+                                alt={props?.kitten?.name}
+                            />
+                        ) : null}
+                    </div>
+                    <div className="prose-sm prose text-justify sm:prose lg:prose-lg">
+                        <ReactMarkdown className="px-4">{props.content}</ReactMarkdown>
+                    </div>
+                    <div className="flex p-4">
+                        {!props.published && userHasValidSession && postBelongsToUser && (
+                            <button
+                                className="p-2 mx-4 bg-green-400 border rounded hover:bg-green-500"
+                                onClick={() => publishPost(props.id)}>
+                                Publish
+                            </button>
+                        )}
+                        {userHasValidSession && postBelongsToUser && (
+                            <button
+                                className="p-2 mx-4 bg-red-400 border rounded hover:bg-red-500"
+                                onClick={() => deletePost(props.id)}>
+                                Delete
+                            </button>
+                        )}
+                    </div>
+                </div>
             </div>
-            <style jsx>{`
-                .page {
-                    background: white;
-                    padding: 2rem;
-                }
-
-                .actions {
-                    margin-top: 2rem;
-                }
-
-                button {
-                    background: #ececec;
-                    border: 0;
-                    border-radius: 0.125rem;
-                    padding: 1rem 2rem;
-                }
-
-                button + button {
-                    margin-left: 1rem;
-                }
-            `}</style>
         </Layout>
     );
 };

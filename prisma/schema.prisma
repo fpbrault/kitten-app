@@ -11,7 +11,13 @@ model Post {
   id        Int     @id @default(autoincrement())
   title     String
   content   String?
+  image     String?
+  kittenId  Int?
+  type      String @default("blog")
   published Boolean @default(false)
+  createdAt     DateTime  @default(now()) @map(name: "created_at")
+  updatedAt     DateTime  @default(now()) @updatedAt @map(name: "updated_at")
+  kitten   Kitten? @relation(fields: [kittenId], references: [id])
   author    User?   @relation(fields: [authorId], references: [id])
   authorId  Int?
 }
@@ -23,7 +29,7 @@ model Kitten {
   litter   Litter? @relation(fields: [litterId], references: [id])
   litterId Int?
   image   String?
-  posts    KittenPost[]
+  posts    Post[]
 }
 
 model KittenPost {
@@ -35,7 +41,6 @@ model KittenPost {
   published Boolean @default(false)
   createdAt     DateTime  @default(now()) @map(name: "created_at")
   updatedAt     DateTime  @updatedAt @map(name: "updated_at")
-  kitten   Kitten @relation(fields: [kittenId], references: [id])
 }
 
 model Litter {

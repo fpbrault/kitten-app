@@ -10,31 +10,30 @@ const Header: React.FC = () => {
     const [session, loading] = useSession();
 
     let left = (
-        <div className="flex justify-center pl-4 -mb-px shadow-md left">
+        <div className="flex justify-center pl-4 -mb-px left">
             <Link href="/">
                 <a
-                    className="py-3 mr-8 text-xs font-bold tracking-wide no-underline uppercase "
+                    className="py-3 mr-8 text-xs font-bold tracking-wide no-underline uppercase hover:text-white "
                     data-active={isActive('/')}>
                     Home
                 </a>
             </Link>
             <Link href="/blog">
                 <a
-                    className="py-3 mr-8 text-xs font-bold tracking-wide no-underline uppercase"
+                    className="py-3 mr-8 text-xs font-bold tracking-wide no-underline uppercase hover:text-white"
                     data-active={isActive('/blog')}>
                     Blog
                 </a>
             </Link>
             <Link href="/kittens">
                 <a
-                    className="py-3 mr-8 text-xs font-bold tracking-wide no-underline uppercase "
+                    className="py-3 mr-8 text-xs font-bold tracking-wide no-underline uppercase hover:text-white "
                     data-active={isActive('/kittens')}>
                     Kittens
                 </a>
             </Link>
             <style jsx>{`
                 .left a[data-active='false'] {
-                    color: black;
                     border-bottom-width: 2px;
                     border-color: white;
                 }
@@ -48,8 +47,8 @@ const Header: React.FC = () => {
         left = (
             <div className="left">
                 <Link href="/">
-                    <a className="bold" data-active={isActive('/')}>
-                        Feed
+                    <a className="bold hover:text-white" data-active={isActive('/')}>
+                        Home
                     </a>
                 </Link>
             </div>
@@ -80,34 +79,57 @@ const Header: React.FC = () => {
 
     if (session) {
         left = (
-            <div className="left">
+            <div className="flex justify-center pl-4 -mb-px left">
                 <Link href="/">
-                    <a className="bold" data-active={isActive('/')}>
+                    <a
+                        className="py-3 mr-8 text-xs font-bold tracking-wide no-underline uppercase hover:text-white "
+                        data-active={isActive('/')}>
                         Home
                     </a>
                 </Link>
                 <Link href="/blog">
-                    <a className="bold" data-active={isActive('/blog')}>
+                    <a
+                        className="py-3 mr-8 text-xs font-bold tracking-wide no-underline uppercase hover:text-white"
+                        data-active={isActive('/blog')}>
                         Blog
                     </a>
                 </Link>
-                <Link href="/drafts">
-                    <a data-active={isActive('/drafts')}>My drafts</a>
+                <Link href="/kittens">
+                    <a
+                        className="py-3 mr-8 text-xs font-bold tracking-wide no-underline uppercase hover:text-white "
+                        data-active={isActive('/kittens')}>
+                        Kittens
+                    </a>
                 </Link>
+                <Link href="/drafts">
+                    <a
+                        className="py-3 mr-8 text-xs font-bold tracking-wide no-underline uppercase hover:text-white "
+                        data-active={isActive('/drafts')}>
+                        My drafts
+                    </a>
+                </Link>
+                <style jsx>{`
+                    .left a[data-active='false'] {
+                        border-bottom-width: 2px;
+                        border-color: white;
+                    }
+                `}</style>
             </div>
         );
         right = (
-            <div className="right">
-                <p>
+            <div className="flex justify-center pl-4 mx-4 right">
+                <p className="p-2 text-xs font-thin">
                     {session.user.name} ({session.user.email})
                 </p>
                 <Link href="/create">
-                    <button>
-                        <a>New post</a>
-                    </button>
+                    <a className="p-2 mr-2 text-xs font-bold tracking-wide no-underline uppercase transition-colors rounded hover:bg-white">
+                        New post
+                    </a>
                 </Link>
-                <button onClick={() => signOut()}>
-                    <a>Log out</a>
+                <button
+                    className="p-2 mr-2 text-xs font-bold tracking-wide no-underline uppercase transition-colors rounded hover:bg-white"
+                    onClick={() => signOut()}>
+                    <a className="">Log out</a>
                 </button>
             </div>
         );

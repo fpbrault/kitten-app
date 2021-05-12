@@ -5,6 +5,7 @@ module.exports = {
         extend: {
             height: {
                 '75vh': '75vh',
+                '95vh': '95vh',
                 '5vh': '5vh',
                 '20vh': '20vh'
             },
@@ -16,5 +17,5 @@ module.exports = {
     variants: {
         extend: {}
     },
-    plugins: []
+    plugins: [require('@tailwindcss/typography')]
 };
