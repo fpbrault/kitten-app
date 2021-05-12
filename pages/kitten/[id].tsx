@@ -15,6 +15,16 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
         include: {
             litter: {
                 select: { name: true, id: true }
+            },
+            posts: {
+                select: {
+                    name: true,
+                    id: true,
+                    content: true,
+                    createdAt: true,
+                    published: true,
+                    image: true
+                }
             }
         }
     });
