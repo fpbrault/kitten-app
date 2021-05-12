@@ -5,10 +5,10 @@ import Router from 'next/router';
 import { KittenProps } from '../../components/Kitten';
 import prisma from '../../lib/prisma';
 import { useSession } from 'next-auth/client';
-import KittenPost from 'components/KittenPost';
+import KittenPost, { KittenPostProps } from 'components/KittenPost';
 
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
-    const kitten = await prisma.kitten.findUnique({
+    const kittendata = await prisma.kitten.findUnique({
         where: {
             id: Number(params?.id) || -1
         },
@@ -19,9 +19,15 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
             posts: true
         }
     });
-    const kittenData = JSON.parse(JSON.stringify(kitten));
+    const kittenpostsdata = await prisma.kittenPost.findMany({
+        where: {
+            kittenId: kittendata.id
+        }
+    });
+    const kittenPosts = JSON.parse(JSON.stringify(kittenpostsdata));
+    const kitten = JSON.parse(JSON.stringify(kittendata));
     return {
-        props: kittenData
+        props: { kitten, kittenPosts }
     };
 };
 
@@ -39,26 +45,30 @@ async function deletePost(id: number): Promise<void> {
     await Router.push('/');
 }
 
-const Kitten: React.FC<KittenProps> = (props) => {
+type Props = {
+    kitten: KittenProps;
+    kittenPosts: KittenPostProps[];
+};
+
+const Kitten: React.FC<Props> = (props) => {
     const [session, loading] = useSession();
     if (loading) {
         return <div>Authenticating ...</div>;
     }
     const userHasValidSession = Boolean(session);
-    console.log(props);
     return (
         <Layout>
             <div className="z-20 flex justify-center w-full bg-white h-20vh">
                 <div className="flex my-auto">
                     <img
-                        src={props.image}
+                        src={props.kitten.image}
                         className="object-cover w-24 h-24 m-auto mr-2 rounded-full sm:w-40 sm:h-40"
-                        alt={props.name}
+                        alt={props.kitten.name}
                     />
                     <div className="">
                         <div className="flex items-center">
                             <h2 className="block text-3xl font-light leading-relaxed text-gray-700">
-                                {props.name}
+                                {props.kitten.name}
                             </h2>
                             <a className="px-3 ml-3 font-semibold text-center text-white bg-transparent bg-blue-500 border border-transparent rounded outline-none cursor-pointer h-7 hover:bg-blue-600">
                                 Add post
@@ -73,13 +83,16 @@ const Kitten: React.FC<KittenProps> = (props) => {
                                 Litter:
                                 <div
                                     onClick={() =>
-                                        Router.push('/litter/[id]', `/litter/${props.litter?.id}`)
+                                        Router.push(
+                                            '/litter/[id]',
+                                            `/litter/${props.kitten.litter?.id}`
+                                        )
                                     }
                                     className="font-bold hover:text-blue-600">
-                                    {props?.litter?.name || 'Unknown litter'}
+                                    {props?.kitten.litter?.name || 'Unknown litter'}
                                 </div>
                             </div>
-                            <span className="text-base">{props?.content}</span>
+                            <span className="text-base">{props?.kitten.content}</span>
                         </div>
                     </div>
                 </div>
@@ -95,7 +108,7 @@ const Kitten: React.FC<KittenProps> = (props) => {
             <div className="overflow-auto bg-gray-100 h-75vh ">
                 <div className="flex justify-center pt-4">
                     <div className="flex flex-col flex-wrap w-5/6 mx-auto">
-                        {props.posts.map((post) => (
+                        {props.kittenPosts.map((post) => (
                             <KittenPost key={post.id} post={post} />
                         ))}
                     </div>

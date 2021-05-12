@@ -15,7 +15,7 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
             id: Number(params?.id) || -1
         },
         include: {
-            Kitten: {}
+            Kitten: true
         }
     });
     return {
@@ -38,7 +38,9 @@ async function deletePost(id: number): Promise<void> {
 }
 
 type Props = {
-    LitterProps: LitterProps;
+    id: number;
+    name: string;
+    description: string;
     Kitten: KittenProps[];
 };
 
@@ -47,18 +49,14 @@ const Litter: React.FC<Props> = (props) => {
     if (loading) {
         return <div>Authenticating ...</div>;
     }
-    let name = props.LitterProps.name;
-    if (!props.LitterProps.name) {
-        name = `${name} (Draft)`;
-    }
 
     return (
         <Layout>
             <div className="flex flex-col justify-center p-4 mt-4 align-center">
                 <div className="mx-auto text-center">
-                    <div className="text-4xl font-bold">{name}</div>
+                    <div className="text-4xl font-bold">{props.name}</div>
                     <div>
-                        <ReactMarkdown children={props.LitterProps.description} />
+                        <ReactMarkdown children={props.description} />
                     </div>
                 </div>
                 <main>
