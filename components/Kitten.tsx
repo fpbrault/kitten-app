@@ -12,7 +12,7 @@ export type KittenProps = {
     litterId: number;
     content: string;
     image: string;
-    kittenPosts: {
+    posts: {
         name: string;
         id: number;
     };
