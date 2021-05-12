@@ -26,15 +26,11 @@ type Props = {
 const Kittens: React.FC<Props> = (props) => {
     return (
         <Layout>
-            <div className="page">
-                <main>
-                    {props.feed.map((kitten) => (
-                        <div key={kitten.id} className="m-4">
-                            <Kitten kitten={kitten} />
-                        </div>
-                    ))}
-                </main>
-            </div>
+            {props.feed.map((kitten) => (
+                <div key={kitten.id} className="mb-4">
+                    <Kitten kitten={kitten} />
+                </div>
+            ))}
         </Layout>
     );
 };

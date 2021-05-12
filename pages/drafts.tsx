@@ -46,13 +46,11 @@ const Drafts: React.FC<Props> = (props) => {
 
     return (
         <Layout>
-            <div className="overflow-auto bg-gray-100 h-95vh ">
-                {props.drafts.map((post) => (
-                    <div key={post.id} className="post">
-                        <Post post={post} />
-                    </div>
-                ))}
-            </div>
+            {props.drafts.map((post) => (
+                <div key={post.id} className="post">
+                    <Post post={post} />
+                </div>
+            ))}
         </Layout>
     );
 };

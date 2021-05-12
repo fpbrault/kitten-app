@@ -57,60 +57,58 @@ const Draft: React.FC<Props> = (props) => {
     console.log(kittenOptions);
     return (
         <Layout>
-            <div className="overflow-auto bg-gray-100 h-95vh">
-                <div className="max-w-4xl p-8 m-auto">
-                    <form onSubmit={submitData}>
-                        {JSON.stringify(type == 'kitten')}
-                        <h1>New Draft</h1>
-                        <input
-                            autoFocus
-                            onChange={(e) => setTitle(e.target.value)}
-                            placeholder="Title"
-                            type="text"
-                            value={title}
-                        />
-                        <Select
-                            onChange={(e) => setType(e)}
-                            defaultValue={typeOptions[1]}
-                            placeholder="Post Type"
-                            options={typeOptions}
-                            value={type}
-                        />
+            <div className="max-w-4xl p-8 m-auto">
+                <form onSubmit={submitData}>
+                    {JSON.stringify(type == 'kitten')}
+                    <h1>New Draft</h1>
+                    <input
+                        autoFocus
+                        onChange={(e) => setTitle(e.target.value)}
+                        placeholder="Title"
+                        type="text"
+                        value={title}
+                    />
+                    <Select
+                        onChange={(e) => setType(e)}
+                        defaultValue={typeOptions[1]}
+                        placeholder="Post Type"
+                        options={typeOptions}
+                        value={type}
+                    />
 
-                        <Select
-                            className="pt-3"
-                            onChange={(e) => setKitten(e)}
-                            defaultValue={kittenOptions[1]}
-                            placeholder="Kitten Name"
-                            options={kittenOptions}
-                            value={kitten}
-                        />
-                        <input
-                            onChange={(e) => setImage(e.target.value)}
-                            placeholder="Image"
-                            type="text"
-                            value={image}
-                        />
-                        <ReactMde
-                            value={content}
-                            onChange={setContent}
-                            selectedTab={selectedTab}
-                            onTabChange={setSelectedTab}
-                            generateMarkdownPreview={(markdown) =>
-                                Promise.resolve(<ReactMarkdown>{markdown}</ReactMarkdown>)
+                    <Select
+                        className="pt-3"
+                        onChange={(e) => setKitten(e)}
+                        defaultValue={kittenOptions[1]}
+                        placeholder="Kitten Name"
+                        options={kittenOptions}
+                        value={kitten}
+                    />
+                    <input
+                        onChange={(e) => setImage(e.target.value)}
+                        placeholder="Image"
+                        type="text"
+                        value={image}
+                    />
+                    <ReactMde
+                        value={content}
+                        onChange={setContent}
+                        selectedTab={selectedTab}
+                        onTabChange={setSelectedTab}
+                        generateMarkdownPreview={(markdown) =>
+                            Promise.resolve(<ReactMarkdown>{markdown}</ReactMarkdown>)
+                        }
+                        childProps={{
+                            writeButton: {
+                                tabIndex: -1
                             }
-                            childProps={{
-                                writeButton: {
-                                    tabIndex: -1
-                                }
-                            }}
-                        />
-                        <input disabled={!content || !title} type="submit" value="Create" />
-                        <a className="back" href="#" onClick={() => Router.push('/')}>
-                            or Cancel
-                        </a>
-                    </form>
-                </div>
+                        }}
+                    />
+                    <input disabled={!content || !title} type="submit" value="Create" />
+                    <a className="back" href="#" onClick={() => Router.push('/')}>
+                        or Cancel
+                    </a>
+                </form>
             </div>
             <style jsx>{`
                 .page {

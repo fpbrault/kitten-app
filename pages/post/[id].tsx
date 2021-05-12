@@ -52,7 +52,7 @@ const Post: React.FC<PostProps> = (props) => {
 
     return (
         <Layout>
-            <div className="overflow-auto bg-gray-100 h-95vh ">
+            <div className="bg-gray-100 ">
                 <div className="flex flex-col items-center max-w-4xl mx-auto my-4 text-center bg-white rounded shadow-lg">
                     {props?.image ? (
                         <img

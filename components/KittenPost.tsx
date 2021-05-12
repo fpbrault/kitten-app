@@ -15,7 +15,7 @@ const KittenPost: React.FC<{ post: KittenPostProps }> = ({ post }) => {
     let day = new Date(post.createdAt).toDateString();
     return (
         <>
-            <div className="flex flex-col items-center max-w-xl mx-auto my-4 text-center bg-white rounded shadow-lg">
+            <div className="flex flex-col items-center max-w-xl mx-auto mb-8 text-center bg-white rounded shadow-lg">
                 <img
                     className="object-cover w-full h-64"
                     src={post.image}

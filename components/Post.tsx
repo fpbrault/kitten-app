@@ -26,8 +26,8 @@ const Post: React.FC<{ post: PostProps }> = ({ post }) => {
     const authorName = post.author ? post.author.name : 'Unknown author';
     let day = new Date(post.createdAt).toDateString();
     return (
-        <>
-            <div className="flex flex-col items-center max-w-3xl mx-auto my-4 text-center bg-white rounded shadow-lg">
+        <div>
+            <div className="flex flex-col items-center max-w-3xl mx-auto mb-4 text-center bg-white rounded shadow-lg">
                 {post?.image ? (
                     <img
                         className="object-cover w-screen/2 h-screen/2"
@@ -53,7 +53,7 @@ const Post: React.FC<{ post: PostProps }> = ({ post }) => {
                     </Link>
                 </div>
             </div>
-        </>
+        </div>
     );
 };
 
