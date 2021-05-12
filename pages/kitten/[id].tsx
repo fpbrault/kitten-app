@@ -15,8 +15,7 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
         include: {
             litter: {
                 select: { name: true, id: true }
-            },
-            posts: {}
+            }
         }
     });
     const kittenData = JSON.parse(JSON.stringify(kitten));
