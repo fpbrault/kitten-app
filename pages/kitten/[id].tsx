@@ -5,7 +5,7 @@ import Router from 'next/router';
 import { KittenProps } from '../../components/Kitten';
 import prisma from '../../lib/prisma';
 import { useSession } from 'next-auth/client';
-import { KittenPostProps } from '../../components/KittenPost';
+import KittenPost, { KittenPostProps } from '../../components/KittenPost';
 
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
     const kittendata = await prisma.kitten.findUnique({
@@ -14,11 +14,9 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
         },
         include: {
             litter: {
-                select: { name: true, id: true }
+                select: { name: false, id: true }
             },
-            posts: {
-                select: { name: true, id: true }
-            }
+            posts: true
         }
     });
     const kittenpostsdata = await prisma.kittenPost.findMany({
@@ -60,7 +58,6 @@ const Kitten: React.FC<Props> = (props) => {
     const userHasValidSession = Boolean(session);
     return (
         <Layout>
-            {JSON.stringify(props)}
             <div className="z-20 flex justify-center w-full bg-white h-20vh">
                 <div className="flex my-auto">
                     <img
@@ -101,19 +98,13 @@ const Kitten: React.FC<Props> = (props) => {
                 </div>
                 <div className="border-b border-gray-300"></div>
             </div>
-            <link
-                rel="stylesheet"
-                href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css"
-                integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog=="
-                crossOrigin="anonymous"
-            />
 
             <div className="overflow-auto bg-gray-100 h-75vh ">
                 <div className="flex justify-center pt-4">
                     <div className="flex flex-col flex-wrap w-5/6 mx-auto">
-                        {/*                         {props.kitten.posts.map((post) => (
+                        {props.kittenPosts.map((post) => (
                             <KittenPost key={post.id} post={post} />
-                        ))} */}
+                        ))}
                     </div>
                 </div>
             </div>
