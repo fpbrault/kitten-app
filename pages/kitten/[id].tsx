@@ -53,8 +53,8 @@ const Kitten: React.FC<Props> = (props) => {
     const userHasValidSession = Boolean(session);
     return (
         <Layout>
-            <div className="z-20 flex justify-center w-full">
-                <div className="flex max-w-xl pb-4 my-auto border-b-4 border-gray-300 sm:px-16">
+            <div className="z-20 flex justify-center w-full pt-24 border-b-2 border-gray-300 bg-cadet-blue">
+                <div className="flex max-w-xl pb-4 my-auto sm:px-16">
                     <img
                         src={props.kitten.image}
                         className="object-cover w-24 h-24 m-auto mr-2 rounded-full sm:w-40 sm:h-40"

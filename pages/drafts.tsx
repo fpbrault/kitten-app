@@ -46,11 +46,14 @@ const Drafts: React.FC<Props> = (props) => {
 
     return (
         <Layout>
-            {props.drafts.map((post) => (
-                <div key={post.id} className="post">
-                    <Post post={post} />
-                </div>
-            ))}
+            {' '}
+            <div className="pt-24">
+                {props.drafts.map((post) => (
+                    <div key={post.id} className="post">
+                        <Post post={post} />
+                    </div>
+                ))}
+            </div>
         </Layout>
     );
 };

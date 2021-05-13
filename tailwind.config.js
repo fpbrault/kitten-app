@@ -11,6 +11,13 @@ module.exports = {
             },
             spacing: {
                 '5vh': '5vh'
+            },
+            colors: {
+                'cadet-blue': '#58A4B0',
+                charcoal: '#373F51',
+                'pastel-pink': '#DAA49A',
+                'light-steel-blue': '#A9BCD0',
+                gainsboro: '#D8DBE2'
             }
         }
     },

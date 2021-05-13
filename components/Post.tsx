@@ -27,16 +27,22 @@ const Post: React.FC<{ post: PostProps }> = ({ post }) => {
     let day = new Date(post.createdAt).toDateString();
     return (
         <div>
-            <div className="flex flex-col items-center max-w-3xl mx-auto mb-4 text-center bg-white rounded shadow-lg">
+            <div className="flex flex-col items-center max-w-3xl mx-auto mb-4 text-center transition-shadow bg-white border border-gray-300 rounded hover:shadow-md">
                 {post?.image ? (
-                    <img
-                        className="object-cover w-screen/2 h-screen/2"
-                        src={post?.image}
-                        alt="Sunset in the mountains"
-                    />
+                    <Link href={'/post/' + post.id}>
+                        <a>
+                            <img
+                                className="object-cover w-screen/2 h-screen/2"
+                                src={post?.image}
+                                alt="Sunset in the mountains"
+                            />
+                        </a>
+                    </Link>
                 ) : null}
                 <div className="flex flex-col flex-wrap content-between px-6 py-4">
-                    <div className="mb-2 text-xl font-bold">{post.title}</div>
+                    <Link href={'/post/' + post.id}>
+                        <a className="mb-2 text-4xl font-bold hover:text-blue-500">{post.title}</a>
+                    </Link>
                     <div className="mb-2 text-lg font-thin">
                         By {authorName || 'Unknown author'}
                     </div>

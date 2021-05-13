@@ -5,8 +5,5 @@ module.exports = withPWA({
     pwa: {
         dest: 'public',
         runtimeCaching
-    },
-    images: {
-        domains: ['pyxis.nymag.com']
     }
 });

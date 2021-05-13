@@ -1,8 +1,8 @@
 {
-  "name": "Next.JS Progressive Web App",
-  "short_name": "Next PWA",
-  "theme_color": "#ffffff",
-  "background_color": "#004740",
+  "name": "Orphan Kitten Rescue",
+  "short_name": "OKR",
+  "theme_color": "#DAA49A",
+  "background_color": "#58A4B0",
   "display": "fullscreen",
   "orientation": "portrait",
   "scope": "/",
