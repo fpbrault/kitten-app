@@ -31,7 +31,7 @@ type Props = {
 const Blog: React.FC<Props> = (props) => {
     return (
         <Layout>
-            <header
+            {/*  <header
                 id="up"
                 className="relative h-screen bg-fixed bg-center bg-gradient-to-br from-indigo-400 to-green-300">
                 <div className="flex items-center justify-center h-screen bg-black bg-opacity-50">
@@ -39,10 +39,6 @@ const Blog: React.FC<Props> = (props) => {
                         <h1 className="text-4xl font-extrabold text-gray-100 xs:text-5xl md:text-6xl">
                             <span className="text-white">Orphan</span> Kitten Rescue
                         </h1>
-                        {/*     <h2 className="text-3xl font-extrabold leading-tight text-gray-200 xs:text-4xl md:text-5xl">
-                            Get a <span className="text-white">Better</span> and{' '}
-                            <span className="text-white">Professionals</span> Design
-                        </h2> */}
                         <div className="inline-flex">
                             <Link href="/blog">
                                 <button className="p-2 mx-2 my-5 font-bold text-white transition duration-500 bg-indigo-700 border-2 border-transparent rounded shadow-md hover:bg-indigo-800 hover:border-indigo-800 md:text-xl">
@@ -59,12 +55,14 @@ const Blog: React.FC<Props> = (props) => {
                         </div>
                     </div>
                 </div>
-            </header>
-            {props.feed.map((post) => (
-                <div key={post.id} className="post">
-                    <Post post={post} />
-                </div>
-            ))}
+            </header> */}
+            <div className="pt-24">
+                {props.feed.map((post) => (
+                    <div key={post.id} className="post">
+                        <Post post={post} />
+                    </div>
+                ))}
+            </div>
         </Layout>
     );
 };

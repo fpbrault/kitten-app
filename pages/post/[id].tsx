@@ -52,10 +52,10 @@ const Post: React.FC<PostProps> = (props) => {
 
     return (
         <Layout>
-            <div className="flex flex-col items-center min-h-screen py-24 text-center bg-white rounded hover:shadow-lg">
+            <div className="flex flex-col items-center min-h-screen py-16 text-center bg-white rounded hover:shadow-lg">
                 {props?.image ? (
                     <img
-                        className="object-cover max-w-4xl"
+                        className="object-cover max-w-full lg:max-w-4xl"
                         src={props?.image}
                         alt="Sunset in the mountains"
                     />

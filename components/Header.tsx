@@ -109,7 +109,7 @@ const Header: React.FC = () => {
     }
 
     return (
-        <nav className="fixed top-0 z-20 flex flex-wrap items-center justify-between w-full pt-4 m-auto bg-gray-200 border-t-2 border-blue-700 border-solid shadow animated lg:py-4 lg:px-4">
+        <nav className="fixed top-0 z-20 flex flex-wrap items-center justify-between w-full pt-4 m-auto bg-gray-200 border-t-2 border-blue-700 border-solid shadow animated lg:py-2 lg:px-2">
             <div className="flex justify-between w-full pb-5 pl-6 pr-2 border-b-2 border-gray-300 border-solid lg:w-auto lg:border-b-0 lg:pb-0">
                 <div className="flex items-center flex-shrink-0 mr-4 text-gray-800">
                     <Link href="/">
