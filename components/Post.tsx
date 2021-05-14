@@ -34,7 +34,7 @@ const Post: React.FC<{ post: PostProps }> = ({ post }) => {
                             <img
                                 className="object-cover w-screen/2 h-screen/2"
                                 src={post?.image}
-                                alt="Sunset in the mountains"
+                                alt={post?.title}
                             />
                         </a>
                     </Link>
