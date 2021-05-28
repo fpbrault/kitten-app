@@ -30,6 +30,17 @@ model Kitten {
   litterId Int?
   image   String?
   posts    Post[]
+  datapoints KittenDataPoint[]
+  birthdate  DateTime  @default(now())
+}
+
+model KittenDataPoint {
+  id       Int     @id @default(autoincrement())
+  time     DateTime  @default(now())
+  kittenId  Int
+  kitten   Kitten @relation(fields: [kittenId], references: [id])
+  startWeight Int
+  finalWeight Int
 }
 
 model KittenPost {

@@ -32,21 +32,6 @@ const Kittens: React.FC<Props> = (props) => {
                         <Kitten kitten={kitten} />
                     </div>
                 ))}
-                {props.feed.map((kitten) => (
-                    <div key={kitten.id} className="mb-4">
-                        <Kitten kitten={kitten} />
-                    </div>
-                ))}
-                {props.feed.map((kitten) => (
-                    <div key={kitten.id} className="mb-4">
-                        <Kitten kitten={kitten} />
-                    </div>
-                ))}
-                {props.feed.map((kitten) => (
-                    <div key={kitten.id} className="mb-4">
-                        <Kitten kitten={kitten} />
-                    </div>
-                ))}
             </div>
         </Layout>
     );

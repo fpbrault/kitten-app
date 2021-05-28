@@ -10,12 +10,12 @@ const Header: React.FC = () => {
     let left = (
         <div className="font-bold text-blue-700 text-md lg:flex-grow">
             <Link href="/blog">
-                <a className="block px-2 py-2 mt-4 mr-2 rounded lg:inline-block lg:mt-0 hover:text-white hover:bg-blue-700">
+                <a className="px-2 py-2 mt-4 mr-2 rounded lg:inline-block lg:mt-0 hover:text-white hover:bg-blue-700">
                     Blog
                 </a>
             </Link>
             <Link href="/kittens">
-                <a className="block px-2 py-2 mt-4 mr-2 rounded lg:inline-block lg:mt-0 hover:text-white hover:bg-blue-700 ">
+                <a className="px-2 py-2 mt-4 mr-2 rounded lg:inline-block lg:mt-0 hover:text-white hover:bg-blue-700">
                     Kittens
                 </a>
             </Link>
@@ -28,12 +28,12 @@ const Header: React.FC = () => {
         left = (
             <div className="font-bold text-blue-700 text-md lg:flex-grow">
                 <Link href="/blog">
-                    <a className="block px-2 py-2 mt-4 mr-2 rounded lg:inline-block lg:mt-0 hover:text-white hover:bg-blue-700">
+                    <a className="px-2 py-2 mt-4 mr-2 rounded lg:inline-block lg:mt-0 hover:text-white hover:bg-blue-700">
                         Blog
                     </a>
                 </Link>
                 <Link href="/kittens">
-                    <a className="block px-2 py-2 mt-4 mr-2 rounded lg:inline-block lg:mt-0 hover:text-white hover:bg-blue-700 ">
+                    <a className="px-2 py-2 mt-4 mr-2 rounded lg:inline-block lg:mt-0 hover:text-white hover:bg-blue-700">
                         Kittens
                     </a>
                 </Link>
@@ -55,7 +55,7 @@ const Header: React.FC = () => {
         right = (
             <div className="flex ">
                 <Link href="/api/auth/signin">
-                    <a className="block px-2 py-2 mt-4 ml-2 font-bold text-blue-700 rounded text-md hover:text-white hover:bg-blue-700 lg:mt-0">
+                    <a className="py-2 mt-4 ml-2 font-bold text-blue-700 rounded lg:px-2 text-md hover:text-white hover:bg-blue-700 lg:mt-0">
                         Log in
                     </a>
                 </Link>
@@ -65,19 +65,19 @@ const Header: React.FC = () => {
 
     if (session) {
         left = (
-            <div className="font-bold text-blue-700 text-md lg:flex-grow">
+            <div className="flex flex-col font-bold text-blue-700 lg:flex-row text-md lg:flex-grow">
                 <Link href="/blog">
-                    <a className="block px-2 py-2 mt-4 mr-2 rounded lg:inline-block lg:mt-0 hover:text-white hover:bg-blue-700">
+                    <a className="p-1 mt-4 mr-2 rounded max-w-max w-min-content lg:py-2 lg:px-2 lg:inline-block lg:mt-0 hover:text-white hover:bg-blue-700">
                         Blog
                     </a>
                 </Link>
                 <Link href="/kittens">
-                    <a className="block px-2 py-2 mt-4 mr-2 rounded lg:inline-block lg:mt-0 hover:text-white hover:bg-blue-700 ">
+                    <a className="p-1 mt-4 mr-2 rounded max-w-max lg:py-2 lg:px-2 lg:inline-block lg:mt-0 hover:text-white hover:bg-blue-700">
                         Kittens
                     </a>
                 </Link>
                 <Link href="/drafts">
-                    <a className="block px-2 py-2 mt-4 mr-2 rounded lg:inline-block lg:mt-0 hover:text-white hover:bg-blue-700 ">
+                    <a className="p-1 mt-4 mr-2 rounded max-w-max lg:py-2 lg:px-2 lg:inline-block lg:mt-0 hover:text-white hover:bg-blue-700">
                         My drafts
                     </a>
                 </Link>
@@ -90,26 +90,26 @@ const Header: React.FC = () => {
             </div>
         );
         right = (
-            <div className="flex ">
-                <p className="block px-2 py-2 mt-4 ml-2 font-thin rounded text-md hover:text-blue-700 lg:mt-0">
+            <div className="flex flex-col items-end text-right lg:flex-row lg:text-left">
+                <div className="p-1 mt-4 font-thin rounded max-w-max lg:py-2 lg:ml-2 lg:px-2 text-md hover:text-blue-700 lg:mt-0">
                     {session.user.name} ({session.user.email})
-                </p>
+                </div>
                 <Link href="/create">
-                    <a className="block px-2 py-2 mt-4 ml-2 font-bold text-blue-700 rounded text-md hover:text-white hover:bg-blue-700 lg:mt-0">
+                    <div className="p-1 mt-4 mr-2 font-bold text-blue-700 rounded max-w-max lg:py-2 lg:px-2 lg:inline-block lg:mt-0 hover:text-white hover:bg-blue-700">
                         New post
-                    </a>
+                    </div>
                 </Link>
-                <button
-                    className="block px-2 py-2 mt-4 ml-2 font-bold text-blue-700 rounded text-md hover:text-white hover:bg-blue-700 lg:mt-0"
+                <div
+                    className="p-1 mt-4 mr-2 font-bold text-blue-700 rounded max-w-max lg:py-2 lg:px-2 lg:inline-block lg:mt-0 hover:text-white hover:bg-blue-700"
                     onClick={() => signOut()}>
                     <a className="">Log out</a>
-                </button>
+                </div>
             </div>
         );
     }
 
     return (
-        <nav className="fixed top-0 z-20 flex flex-wrap items-center justify-between w-full pt-4 m-auto bg-gray-200 border-t-2 border-blue-700 border-solid shadow animated lg:py-2 lg:px-2">
+        <nav className="fixed top-0 z-20 flex flex-wrap items-center justify-center w-full px-8 pt-4 m-auto border-t-2 border-blue-700 border-solid shadow bg-gainsboro animated lg:py-2 xl:px-64">
             <div className="flex justify-between w-full pb-5 pl-6 pr-2 border-b-2 border-gray-300 border-solid lg:w-auto lg:border-b-0 lg:pb-0">
                 <div className="flex items-center flex-shrink-0 mr-4 text-gray-800">
                     <Link href="/">
@@ -118,7 +118,7 @@ const Header: React.FC = () => {
                         </a>
                     </Link>
                 </div>
-                <div className="block lg:hidden ">
+                <div className=" lg:hidden">
                     <button
                         id="nav"
                         onClick={() => setNavbarOpen(!navbarOpen)}
@@ -135,33 +135,10 @@ const Header: React.FC = () => {
             </div>
             <div
                 className={
-                    'flex-grow w-full px-8lg:block lg:flex lg:items-center lg:w-auto lg:px-3' +
+                    'flex-grow flex justify-between flex-row w-full px-8lg: lg:flex lg:items-center lg:w-auto pb-2 lg:pb-0 lg:px-3' +
                     (navbarOpen ? '  ' : ' hidden')
                 }>
                 {left}
-                {/*   <div className="relative hidden mx-auto text-gray-600 lg:block">
-                    <input
-                        className="h-10 pl-2 pr-8 text-sm bg-white border-2 border-gray-300 rounded-lg focus:outline-none"
-                        type="search"
-                        name="search"
-                        placeholder="Search"
-                    />
-                    <button type="submit" className="absolute top-0 right-0 mt-3 mr-2">
-                        <svg
-                            className="w-4 h-4 text-gray-600 fill-current"
-                            xmlns="http://www.w3.org/2000/svg"
-                            version="1.1"
-                            id="Capa_1"
-                            x="0px"
-                            y="0px"
-                            viewBox="0 0 56.966 56.966"
-                            xmlSpace="preserve"
-                            width="512px"
-                            height="512px">
-                            <path d="M55.146,51.887L41.588,37.786c3.486-4.144,5.396-9.358,5.396-14.786c0-12.682-10.318-23-23-23s-23,10.318-23,23  s10.318,23,23,23c4.761,0,9.298-1.436,13.177-4.162l13.661,14.208c0.571,0.593,1.339,0.92,2.162,0.92  c0.779,0,1.518-0.297,2.079-0.837C56.255,54.982,56.293,53.08,55.146,51.887z M23.984,6c9.374,0,17,7.626,17,17s-7.626,17-17,17  s-17-7.626-17-17S14.61,6,23.984,6z" />
-                        </svg>
-                    </button>
-                </div> */}
                 {right}
             </div>
         </nav>

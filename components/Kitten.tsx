@@ -2,6 +2,7 @@ import React from 'react';
 import ReactMarkdown from 'react-markdown';
 import Link from 'next/link';
 import { KittenPostProps } from './KittenPost';
+import { KittenDataPoint } from '.prisma/client';
 
 export type KittenProps = {
     id: number;
@@ -11,9 +12,11 @@ export type KittenProps = {
         name: string;
         id: number;
     };
+    datapoints: KittenDataPoint[];
     litterId: number;
     content: string;
     image: string;
+    birthdate: Date;
 };
 
 const Kitten: React.FC<{ kitten: KittenProps }> = ({ kitten }) => {
