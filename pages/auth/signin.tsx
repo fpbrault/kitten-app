@@ -13,7 +13,7 @@ export default function SignIn({ providers }: Providers): ReactElement {
         <div className="flex flex-col justify-center min-h-screen bg-charcoal sm:py-12">
             <div className="p-10 mx-auto xs:p-0 md:w-full md:max-w-md">
                 <h1 className="mb-5 text-4xl font-bold text-center text-white">
-                    Orphan Kitten Rescue
+                    Les Petits Chatons
                 </h1>
 
                 <div className="p-5">

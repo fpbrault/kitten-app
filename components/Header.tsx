@@ -114,7 +114,7 @@ const Header: React.FC = () => {
                 <div className="flex items-center flex-shrink-0 mr-4 text-gray-800">
                     <Link href="/">
                         <a className="text-2xl font-semibold tracking-tight transition-colors hover:text-blue-700">
-                            Orphan Kitten Rescue
+                            Les Petits Chatons
                         </a>
                     </Link>
                 </div>
