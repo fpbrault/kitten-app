@@ -5,13 +5,13 @@ import Router from 'next/router';
 import Select from 'react-select';
 import { KittenProps } from '../components/Kitten';
 import prisma from '../lib/prisma';
-import ReactMde from 'react-mde';
-import ReactMarkdown from 'react-markdown';
-import 'react-mde/lib/styles/css/react-mde-all.css';
-import { useSession, getSession } from 'next-auth/client';
+import 'react-widgets/styles.css';
+import DatePicker from 'react-widgets/DatePicker';
+import NumberPicker from 'react-widgets/NumberPicker';
+import { KittenDataPostProps } from '../components/KittenDataPost';
+import { useSession } from 'next-auth/client';
 
-export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
-    const session = await getSession({ req });
+export const getServerSideProps: GetServerSideProps = async () => {
     const kittens = await prisma.kitten.findMany({
         select: {
             name: true,
@@ -25,100 +25,90 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
 
 type Props = {
     kittens: KittenProps[];
+    kittenData: KittenDataPostProps[];
 };
 
 const Draft: React.FC<Props> = (props) => {
-
     const [session] = useSession();
 
     if (!session) {
         return (
             <Layout>
-                <div className="max-w-4xl p-8 mt-24 m-auto">
+                <div className="max-w-4xl p-8 m-auto mt-24">
                     <div>You need to be authenticated to view this page.</div>
                 </div>
             </Layout>
         );
     }
-    const [title, setTitle] = useState('');
-    const [content, setContent] = useState('');
-    const [type, setType] = useState('');
-    const [image, setImage] = useState('');
-    const [kitten, setKitten] = useState('');
-    const [selectedTab, setSelectedTab] = useState<'write' | 'preview'>('write');
+    const [startWeight, setStartWeight] = useState(350);
+    const [finalWeight, setFinalWeight] = useState(350);
+    const [time, setTime] = useState(new Date());
+    const [kitten, setKitten] = useState();
 
     const submitData = async (e: React.SyntheticEvent) => {
         e.preventDefault();
         try {
-            const body = { title, content, type, kitten, image };
-            await fetch(`/api/post`, {
+            const body = { startWeight, finalWeight, kitten, time };
+            await fetch(`/api/kittendatapost`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(body)
             });
-            await Router.push('/drafts');
+            //await Router.push('/drafts');
         } catch (error) {
             console.error(error);
         }
     };
 
-    const typeOptions = [
-        { value: 'blog', label: 'Blog Post' },
-        { value: 'kitten', label: 'Kitten Post' }
-    ];
-
     const kittenOptions = props.kittens.map((x) => ({ value: x.id, label: x.name }));
-    console.log(kittenOptions);
     return (
         <Layout>
-            <div className="max-w-4xl p-8 m-auto">
+            <div className="max-w-4xl p-8 m-auto mt-24">
                 <form onSubmit={submitData}>
-                    {JSON.stringify(type == 'kitten')}
-                    <h1>New Draft</h1>
-                    <input
-                        autoFocus
-                        onChange={(e) => setTitle(e.target.value)}
-                        placeholder="Title"
-                        type="text"
-                        value={title}
-                    />
+                    <h1>New Kitten Data Entry</h1>
                     <Select
-                        onChange={(e) => setType(e)}
-                        defaultValue={typeOptions[1]}
-                        placeholder="Post Type"
-                        options={typeOptions}
-                        value={type}
-                    />
-
-                    <Select
+                        name="kitten-select"
                         className="pt-3"
                         onChange={(e) => setKitten(e)}
-                        defaultValue={kittenOptions[1]}
+                        defaultValue={kittenOptions[0]}
                         placeholder="Kitten Name"
                         options={kittenOptions}
                         value={kitten}
                     />
-                    <input
-                        onChange={(e) => setImage(e.target.value)}
-                        placeholder="Image"
-                        type="text"
-                        value={image}
-                    />
-                    <ReactMde
-                        value={content}
-                        onChange={setContent}
-                        selectedTab={selectedTab}
-                        onTabChange={setSelectedTab}
-                        generateMarkdownPreview={(markdown) =>
-                            Promise.resolve(<ReactMarkdown>{markdown}</ReactMarkdown>)
-                        }
-                        childProps={{
-                            writeButton: {
-                                tabIndex: -1
-                            }
-                        }}
-                    />
-                    <input disabled={!content || !title} type="submit" value="Create" />
+                    <div className="grid grid-cols-2 gap-4 pt-3 mx-auto">
+                        <div>
+                            <label>Starting Weight</label>
+                            <NumberPicker
+                                min={0}
+                                defaultValue={350}
+                                onChange={(e) => setStartWeight(e)}
+                                placeholder="0"
+                                precision={0}
+                                format={{ style: 'unit', unit: 'gram', unitDisplay: 'long' }}
+                            />
+                        </div>
+                        <div>
+                            <label>Final Weight</label>
+                            <NumberPicker
+                                min={0}
+                                defaultValue={350}
+                                onChange={(e) => setFinalWeight(e)}
+                                placeholder="0"
+                                precision={0}
+                                format={{ style: 'unit', unit: 'gram', unitDisplay: 'long' }}
+                            />
+                        </div>
+                    </div>
+                    <div className="py-4">
+                        <label>Time</label>
+                        <DatePicker
+                            defaultValue={new Date()}
+                            onChange={(value) => setTime(value)}
+                            includeTime
+                        />
+                    </div>
+
+                    <input type="submit" value="Create" />
                     <a className="back" href="#" onClick={() => Router.push('/')}>
                         or Cancel
                     </a>

@@ -10,26 +10,31 @@ export default async function handle(req: NextApiRequest, res: NextApiResponse):
 
     const session = await getSession({ req });
 
-    const result =
-        kitten !== ''
-            ? await prisma.post.create({
-                  data: {
-                      title: title,
-                      content: content,
-                      type: type.value,
-                      kitten: { connect: { id: kitten?.value } },
-                      author: { connect: { email: session?.user?.email } },
-                      image: image
-                  }
-              })
-            : await prisma.post.create({
-                  data: {
-                      title: title,
-                      content: content,
-                      type: type.value,
-                      author: { connect: { email: session?.user?.email } },
-                      image: image
-                  }
-              });
-    res.json(result);
+    if (session) {
+        const result =
+            kitten !== ''
+                ? await prisma.post.create({
+                      data: {
+                          title: title,
+                          content: content,
+                          type: type.value,
+                          kitten: { connect: { id: kitten?.value } },
+                          author: { connect: { email: session?.user?.email } },
+                          image: image
+                      }
+                  })
+                : await prisma.post.create({
+                      data: {
+                          title: title,
+                          content: content,
+                          type: type.value,
+                          author: { connect: { email: session?.user?.email } },
+                          image: image
+                      }
+                  });
+        res.json(result);
+    } else {
+        res.status(403);
+        res.end();
+    }
 }
