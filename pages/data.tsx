@@ -84,7 +84,7 @@ const Draft: React.FC<Props> = (props) => {
                                 onChange={(e) => setStartWeight(e)}
                                 placeholder="0"
                                 precision={0}
-                                format={{ style: 'unit', unit: 'gram', unitDisplay: 'long' }}
+                                //format={{ style: 'unit', unit: 'gram', unitDisplay: 'long' }}
                             />
                         </div>
                         <div>
@@ -95,7 +95,7 @@ const Draft: React.FC<Props> = (props) => {
                                 onChange={(e) => setFinalWeight(e)}
                                 placeholder="0"
                                 precision={0}
-                                format={{ style: 'unit', unit: 'gram', unitDisplay: 'long' }}
+                                //format={{ style: 'unit', unit: 'gram', unitDisplay: 'long' }}
                             />
                         </div>
                     </div>
