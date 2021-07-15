@@ -3,8 +3,10 @@ const runtimeCaching = require('next-pwa/cache');
 
 if (process.env.DISABLE_PWA == 'TRUE') {
     module.exports = {
-        images: {
-            domains: ['pyxis.nymag.com']
+        eslint: {
+            // Warning: Dangerously allow production builds to successfully complete even if
+            // your project has ESLint errors.
+            ignoreDuringBuilds: true
         }
     };
 } else {
@@ -12,6 +14,11 @@ if (process.env.DISABLE_PWA == 'TRUE') {
         pwa: {
             dest: 'public',
             runtimeCaching
+        },
+        eslint: {
+            // Warning: Dangerously allow production builds to successfully complete even if
+            // your project has ESLint errors.
+            ignoreDuringBuilds: true
         }
     });
 }
