@@ -8,10 +8,9 @@ import prisma from '../lib/prisma';
 import ReactMde from 'react-mde';
 import ReactMarkdown from 'react-markdown';
 import 'react-mde/lib/styles/css/react-mde-all.css';
-import { useSession, getSession } from 'next-auth/client';
+import { useSession } from 'next-auth/client';
 
-export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
-    const session = await getSession({ req });
+export const getServerSideProps: GetServerSideProps = async () => {
     const kittens = await prisma.kitten.findMany({
         select: {
             name: true,
@@ -28,13 +27,11 @@ type Props = {
 };
 
 const Draft: React.FC<Props> = (props) => {
-
     const [session] = useSession();
-
     if (!session) {
         return (
             <Layout>
-                <div className="max-w-4xl p-8 mt-24 m-auto">
+                <div className="max-w-4xl p-8 m-auto mt-24">
                     <div>You need to be authenticated to view this page.</div>
                 </div>
             </Layout>
@@ -68,7 +65,6 @@ const Draft: React.FC<Props> = (props) => {
     ];
 
     const kittenOptions = props.kittens.map((x) => ({ value: x.id, label: x.name }));
-    console.log(kittenOptions);
     return (
         <Layout>
             <div className="max-w-4xl p-8 m-auto">
@@ -76,7 +72,6 @@ const Draft: React.FC<Props> = (props) => {
                     {JSON.stringify(type == 'kitten')}
                     <h1>New Draft</h1>
                     <input
-                        autoFocus
                         onChange={(e) => setTitle(e.target.value)}
                         placeholder="Title"
                         type="text"
@@ -89,15 +84,16 @@ const Draft: React.FC<Props> = (props) => {
                         options={typeOptions}
                         value={type}
                     />
-
-                    <Select
-                        className="pt-3"
-                        onChange={(e) => setKitten(e)}
-                        defaultValue={kittenOptions[1]}
-                        placeholder="Kitten Name"
-                        options={kittenOptions}
-                        value={kitten}
-                    />
+                    {type['value'] == 'kitten' ? (
+                        <Select
+                            className="pt-3"
+                            onChange={(e) => setKitten(e)}
+                            defaultValue={kittenOptions[1]}
+                            placeholder="Kitten Name"
+                            options={kittenOptions}
+                            value={kitten}
+                        />
+                    ) : null}
                     <input
                         onChange={(e) => setImage(e.target.value)}
                         placeholder="Image"

@@ -10,12 +10,20 @@ import DatePicker from 'react-widgets/DatePicker';
 import NumberPicker from 'react-widgets/NumberPicker';
 import { KittenDataPostProps } from '../components/KittenDataPost';
 import { useSession } from 'next-auth/client';
+import KittenDataTable from '../components/KittenDataTable';
+import { useRouter } from 'next/router';
+import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
+import Loader from 'react-loader-spinner';
 
 export const getServerSideProps: GetServerSideProps = async () => {
     const kittens = await prisma.kitten.findMany({
         select: {
             name: true,
-            id: true
+            id: true,
+            datapoints: true
+        },
+        orderBy: {
+            id: 'asc'
         }
     });
     return {
@@ -29,6 +37,11 @@ type Props = {
 };
 
 const Draft: React.FC<Props> = (props) => {
+    const router = useRouter();
+    const refreshData = () => {
+        router.replace(router.asPath);
+    };
+
     const [session] = useSession();
 
     if (!session) {
@@ -43,21 +56,32 @@ const Draft: React.FC<Props> = (props) => {
     const [startWeight, setStartWeight] = useState(350);
     const [finalWeight, setFinalWeight] = useState(350);
     const [time, setTime] = useState(new Date());
-    const [kitten, setKitten] = useState();
+    const [kitten, setKitten] = useState(null);
+    let [loading, setLoading] = useState(false);
 
     const submitData = async (e: React.SyntheticEvent) => {
         e.preventDefault();
-        try {
-            const body = { startWeight, finalWeight, kitten, time };
-            await fetch(`/api/kittendatapost`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(body)
+
+        setLoading(true);
+        const body = { startWeight, finalWeight, kitten, time };
+        await fetch(`/api/kittendatapost`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(body)
+        })
+            .then(() => {
+                refreshData();
+                setTimeout(function () {
+                    setLoading(false);
+                }, 500);
+            })
+            .catch((error) => {
+                setTimeout(function () {
+                    setLoading(false);
+                }, 500);
+                console.error(error);
+                refreshData();
             });
-            //await Router.push('/drafts');
-        } catch (error) {
-            console.error(error);
-        }
     };
 
     const kittenOptions = props.kittens.map((x) => ({ value: x.id, label: x.name }));
@@ -65,19 +89,17 @@ const Draft: React.FC<Props> = (props) => {
         <Layout>
             <div className="max-w-4xl p-8 m-auto mt-24">
                 <form onSubmit={submitData}>
-                    <h1>New Kitten Data Entry</h1>
+                    <div className="text-2xl font-bold text-blue-700">New Data Entry</div>
+                    <div className="pt-6 font-light text-gray-600">Kitten Name</div>
                     <Select
-                        name="kitten-select"
-                        className="pt-3"
                         onChange={(e) => setKitten(e)}
-                        defaultValue={kittenOptions[0]}
                         placeholder="Kitten Name"
                         options={kittenOptions}
                         value={kitten}
                     />
                     <div className="grid grid-cols-2 gap-4 pt-3 mx-auto">
                         <div>
-                            <label>Starting Weight</label>
+                            <div className="font-light text-gray-600">Starting Weight</div>
                             <NumberPicker
                                 min={0}
                                 defaultValue={350}
@@ -88,7 +110,7 @@ const Draft: React.FC<Props> = (props) => {
                             />
                         </div>
                         <div>
-                            <label>Final Weight</label>
+                            <div className="font-light text-gray-600">Final Weight</div>
                             <NumberPicker
                                 min={0}
                                 defaultValue={350}
@@ -100,7 +122,7 @@ const Draft: React.FC<Props> = (props) => {
                         </div>
                     </div>
                     <div className="py-4">
-                        <label>Time</label>
+                        <div className="font-light text-gray-600">Time</div>
                         <DatePicker
                             defaultValue={new Date()}
                             onChange={(value) => setTime(value)}
@@ -108,41 +130,41 @@ const Draft: React.FC<Props> = (props) => {
                         />
                     </div>
 
-                    <input type="submit" value="Create" />
-                    <a className="back" href="#" onClick={() => Router.push('/')}>
-                        or Cancel
-                    </a>
+                    {loading ? (
+                        <div className="flex justify-center">
+                            <Loader type="ThreeDots" color="#00BFFF" height={50} width={50} />
+                        </div>
+                    ) : (
+                        <div>
+                            <input
+                                className="p-1 mr-2 font-bold text-blue-700 transition-colors rounded max-w-max lg:py-2 lg:px-2 lg:inline-block lg:mt-0 hover:text-white hover:bg-blue-700"
+                                type="submit"
+                                value="Create"
+                            />
+                            <a
+                                className="py-2 ml-2 font-bold text-black transition-colors rounded lg:px-2 text-md hover:text-red-500 lg:mt-0"
+                                href="#"
+                                onClick={() => Router.push('/')}>
+                                Cancel
+                            </a>
+                        </div>
+                    )}
                 </form>
+                {kitten && (
+                    <div className="pt-4">
+                        <KittenDataTable
+                            kittenData={props.kittens[kitten?.value - 1].datapoints}
+                            refreshData={refreshData}></KittenDataTable>
+                    </div>
+                )}
             </div>
             <style jsx>{`
                 .page {
                     background: white;
-                    padding: 3rem;
+                    padding: 1rem;
                     display: flex;
                     justify-content: center;
                     align-items: center;
-                }
-
-                input[type='text'],
-                textarea {
-                    width: 100%;
-                    padding: 0.5rem;
-                    margin: 0.5rem 0;
-                    border-radius: 0.25rem;
-                    border: 0.125rem solid rgba(0, 0, 0, 0.2);
-                }
-
-                .mde-preview {
-                    background: white;
-                }
-                input[type='submit'] {
-                    background: #ececec;
-                    border: 0;
-                    padding: 1rem 2rem;
-                }
-
-                .back {
-                    margin-left: 1rem;
                 }
             `}</style>
         </Layout>

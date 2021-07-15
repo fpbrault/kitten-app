@@ -22,6 +22,10 @@ const App = ({ Component, pageProps }: AppProps) => {
                 <link href="/icons/favicon-16x16.png" rel="icon" type="image/png" sizes="16x16" />
                 <link href="/icons/favicon-32x32.png" rel="icon" type="image/png" sizes="32x32" />
                 <link rel="apple-touch-icon" href="/apple-icon.png"></link>
+                <link
+                    rel="stylesheet"
+                    href="https://fonts.googleapis.com/icon?family=Material+Icons"
+                />
                 <meta name="theme-color" content="#317EFB" />
             </Head>
             <Component {...pageProps} />

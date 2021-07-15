@@ -2,7 +2,6 @@ import React from 'react';
 import Layout from '../components/Layout';
 import { GetServerSideProps } from 'next';
 import Post, { PostProps } from '../components/Post';
-import Link from 'next/link';
 import prisma from '../lib/prisma';
 
 export const getServerSideProps: GetServerSideProps = async () => {

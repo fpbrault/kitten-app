@@ -60,8 +60,9 @@ export default function SignIn({ providers }: Providers): ReactElement {
 }
 
 // This is the recommended way for Next.js 9.3 or newer
-export async function getServerSideProps(context) {
+export async function getServerSideProps() {
     const providers = await getProviders();
+
     return {
         props: { providers }
     };
