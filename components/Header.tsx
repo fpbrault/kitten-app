@@ -95,20 +95,20 @@ const Header: React.FC = () => {
                     {session.user.name} ({session.user.email})
                 </div>
                 <Link href="/create">
-                    <div className="p-1 mt-4 mr-2 font-bold text-blue-700 rounded max-w-max lg:py-2 lg:px-2 lg:inline-block lg:mt-0 hover:text-white hover:bg-blue-700">
+                    <a className="p-1 mt-4 mr-2 font-bold text-blue-700 rounded max-w-max lg:py-2 lg:px-2 lg:inline-block lg:mt-0 hover:text-white hover:bg-blue-700">
                         New Post
-                    </div>
+                    </a>
                 </Link>
                 <Link href="/data">
-                    <div className="p-1 mt-4 mr-2 font-bold text-blue-700 rounded max-w-max lg:py-2 lg:px-2 lg:inline-block lg:mt-0 hover:text-white hover:bg-blue-700">
+                    <a className="p-1 mt-4 mr-2 font-bold text-blue-700 rounded max-w-max lg:py-2 lg:px-2 lg:inline-block lg:mt-0 hover:text-white hover:bg-blue-700">
                         New Data Entry
-                    </div>
+                    </a>
                 </Link>
-                <div
+                <a
                     className="p-1 mt-4 mr-2 font-bold text-blue-700 rounded max-w-max lg:py-2 lg:px-2 lg:inline-block lg:mt-0 hover:text-white hover:bg-blue-700"
                     onClick={() => signOut()}>
-                    <a className="">Log out</a>
-                </div>
+                    <div className="">Log out</div>
+                </a>
             </div>
         );
     }

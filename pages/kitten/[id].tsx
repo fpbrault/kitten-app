@@ -7,6 +7,7 @@ import prisma from '../../lib/prisma';
 import { useSession } from 'next-auth/client';
 import KittenPost from '../../components/KittenPost';
 import dynamic from 'next/dynamic';
+import Router from 'next/router';
 
 const LineChart = dynamic(() => import('../../components/LineChart'), { ssr: false });
 
@@ -229,13 +230,16 @@ const Kitten: React.FC<Props> = (props) => {
                 />
                 {userHasValidSession ? (
                     <div className="flex flex-row items-center justify-center my-2 ">
-                        <a className="px-3 mx-2 font-semibold text-center text-white transition-colors bg-transparent border border-transparent rounded outline-none cursor-pointer bg-charcoal h-7 hover:bg-cadet-blue">
-                            Add post
-                        </a>
-
-                        <a className="px-3 font-semibold text-center transition-colors bg-transparent border rounded cursor-pointer text-charcoal border-charcoal h-7 focus:outline-none hover:border-transparent hover:bg-white hover:text-charcoal">
-                            Edit
-                        </a>
+                        <Link href={'/create'}>
+                            <a className="px-3 mx-2 font-semibold text-center text-white transition-colors bg-transparent border border-transparent rounded outline-none cursor-pointer bg-charcoal h-7 hover:bg-cadet-blue">
+                                Add post
+                            </a>
+                        </Link>
+                        <Link href={'/data'}>
+                            <a className="px-3 font-semibold text-center transition-colors bg-transparent border rounded cursor-pointer text-charcoal border-charcoal h-7 focus:outline-none hover:border-transparent hover:bg-white hover:text-charcoal">
+                                Edit
+                            </a>
+                        </Link>
                     </div>
                 ) : null}
                 <div className="grid content-center pb-4 text-center hover:grid-cols-1">
