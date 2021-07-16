@@ -15,8 +15,8 @@ model Post {
   kittenId  Int?
   type      String @default("blog")
   published Boolean @default(false)
-  createdAt     DateTime  @default(now()) @map(name: "created_at")
-  updatedAt     DateTime  @default(now()) @updatedAt @map(name: "updated_at")
+  createdAt     DateTime  @default(now()) @map(name: "created_at") @db.Timestamptz(0)
+  updatedAt     DateTime  @default(now()) @updatedAt @map(name: "updated_at") @db.Timestamptz(0)
   kitten   Kitten? @relation(fields: [kittenId], references: [id])
   author    User?   @relation(fields: [authorId], references: [id])
   authorId  Int?
@@ -31,12 +31,12 @@ model Kitten {
   image   String?
   posts    Post[]
   datapoints KittenDataPoint[]
-  birthdate  DateTime  @default(now())
+  birthdate  DateTime  @default(now()) @db.Timestamptz(0)
 }
 
 model KittenDataPoint {
   id       Int     @id @default(autoincrement())
-  time     DateTime  @default(now())
+  time     DateTime  @default(now()) @db.Timestamptz(0)
   kittenId  Int
   kitten   Kitten @relation(fields: [kittenId], references: [id])
   startWeight Int
@@ -50,8 +50,8 @@ model KittenPost {
   content  String?
   image   String?
   published Boolean @default(false)
-  createdAt     DateTime  @default(now()) @map(name: "created_at")
-  updatedAt     DateTime  @updatedAt @map(name: "updated_at")
+  createdAt     DateTime  @default(now()) @map(name: "created_at") @db.Timestamptz(0)
+  updatedAt     DateTime  @updatedAt @map(name: "updated_at") @db.Timestamptz(0)
 }
 
 model Litter {
