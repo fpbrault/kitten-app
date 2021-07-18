@@ -38,7 +38,9 @@ module.exports = {
         'plugin:prettier/recommended' // Make this the last element so prettier config overrides other formatting rules
     ],
     rules: {
-        'react/jsx-filename-extension': [1, { extensions: ['.ts', '.tsx'] }],
+        // suppress errors for missing 'import React' in files
+        'react/react-in-jsx-scope': 'off',
+        'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx', '.ts', '.tsx'] }],
         'import/extensions': 'off',
         'react/prop-types': 'off',
         'jsx-a11y/anchor-is-valid': 'off',

@@ -2,7 +2,6 @@ import React from 'react';
 import { GetServerSideProps } from 'next';
 import ReactMarkdown from 'react-markdown';
 import Layout from '../../components/Layout';
-import Router from 'next/router';
 import prisma from '../../lib/prisma';
 import { useSession } from 'next-auth/client';
 import Kitten from '../../components/Kitten';
@@ -22,20 +21,6 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
     };
 };
 
-async function publishPost(id: number): Promise<void> {
-    await fetch(`/api/publish/${id}`, {
-        method: 'PUT'
-    });
-    await Router.push('/');
-}
-
-async function deletePost(id: number): Promise<void> {
-    await fetch(`/api/post/${id}`, {
-        method: 'DELETE'
-    });
-    await Router.push('/');
-}
-
 type Props = {
     id: number;
     name: string;
@@ -44,7 +29,7 @@ type Props = {
 };
 
 const Litter: React.FC<Props> = (props) => {
-    const [session, loading] = useSession();
+    const [loading] = useSession();
     if (loading) {
         return <div>Authenticating ...</div>;
     }

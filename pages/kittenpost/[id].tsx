@@ -19,31 +19,16 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
     };
 };
 
-async function publishKittenPost(id: number): Promise<void> {
-    await fetch(`/api/publish/${id}`, {
-        method: 'PUT'
-    });
-    await Router.push('/');
-}
-
-async function deleteKittenPost(id: number): Promise<void> {
-    await fetch(`/api/kittenpost/${id}`, {
-        method: 'DELETE'
-    });
-    await Router.push('/');
-}
-
 type Props = {
     kitten: KittenProps;
     kittenPosts: KittenPostProps[];
 };
 
 const Kitten: React.FC<Props> = (props) => {
-    const [session, loading] = useSession();
+    const [loading] = useSession();
     if (loading) {
         return <div>Authenticating ...</div>;
     }
-    const userHasValidSession = Boolean(session);
     return (
         <Layout>
             <div className="z-20 flex justify-center w-full bg-white h-20vh">
@@ -70,7 +55,15 @@ const Kitten: React.FC<Props> = (props) => {
                             <div className="grid grid-cols-2 gap-1">
                                 Litter:
                                 <div
+                                    role="link"
+                                    tabIndex={0}
                                     onClick={() =>
+                                        Router.push(
+                                            '/litter/[id]',
+                                            `/litter/${props.kitten.litter?.id}`
+                                        )
+                                    }
+                                    onKeyPress={() =>
                                         Router.push(
                                             '/litter/[id]',
                                             `/litter/${props.kitten.litter?.id}`

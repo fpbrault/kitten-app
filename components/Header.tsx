@@ -5,8 +5,8 @@ import { signOut, useSession } from 'next-auth/client';
 const Header: React.FC = () => {
     const [navbarOpen, setNavbarOpen] = React.useState(false);
 
+    //const [session, loading] = Auth.useUser();
     const [session, loading] = useSession();
-
     let left = (
         <div className="font-bold text-blue-700 text-md lg:flex-grow">
             <Link href="/blog">
@@ -106,7 +106,10 @@ const Header: React.FC = () => {
                 </Link>
                 <a
                     className="p-1 mt-4 mr-2 font-bold text-blue-700 rounded max-w-max lg:py-2 lg:px-2 lg:inline-block lg:mt-0 hover:text-white hover:bg-blue-700"
-                    onClick={() => signOut()}>
+                    role="link"
+                    tabIndex={0}
+                    onClick={() => signOut()}
+                    onKeyPress={() => signOut()}>
                     <div className="">Log out</div>
                 </a>
             </div>

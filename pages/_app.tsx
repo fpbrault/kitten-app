@@ -3,6 +3,10 @@ import Head from 'next/head';
 import { AppProps } from 'next/app';
 import React from 'react';
 import 'tailwindcss/tailwind.css';
+import { Auth } from '@supabase/ui';
+import DateFnsUtils from '@date-io/date-fns';
+import { MuiPickersUtilsProvider } from '@material-ui/pickers';
+import { supabase } from '../lib/supabaseClient';
 
 const App = ({ Component, pageProps }: AppProps) => {
     return (
@@ -28,7 +32,9 @@ const App = ({ Component, pageProps }: AppProps) => {
                 />
                 <meta name="theme-color" content="#317EFB" />
             </Head>
-            <Component {...pageProps} />
+            <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                <Component {...pageProps} />
+            </MuiPickersUtilsProvider>
         </Provider>
     );
 };

@@ -4,28 +4,20 @@ import Layout from '../components/Layout';
 import Router from 'next/router';
 import Select from 'react-select';
 import { KittenProps } from '../components/Kitten';
-import prisma from '../lib/prisma';
 import 'react-widgets/styles.css';
-import DatePicker from 'react-widgets/DatePicker';
+import useSWR from 'swr';
 import NumberPicker from 'react-widgets/NumberPicker';
 import { KittenDataPostProps } from '../components/KittenDataPost';
 import { useSession } from 'next-auth/client';
 import KittenDataTable from '../components/KittenDataTable';
-import { useRouter } from 'next/router';
 import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
 import Loader from 'react-loader-spinner';
+import { DateTimePicker } from '@material-ui/pickers';
+
+const fetcher = (url) => fetch(url).then((res) => res.json());
 
 export const getServerSideProps: GetServerSideProps = async () => {
-    const kittens = await prisma.kitten.findMany({
-        select: {
-            name: true,
-            id: true,
-            datapoints: true
-        },
-        orderBy: {
-            id: 'asc'
-        }
-    });
+    const kittens = await fetcher(process.env.NEXTAUTH_URL + '/api/kittendatapost');
     return {
         props: { kittens }
     };
@@ -37,9 +29,9 @@ type Props = {
 };
 
 const Draft: React.FC<Props> = (props) => {
-    const router = useRouter();
+    const { data, mutate } = useSWR('/api/kittendatapost', fetcher);
     const refreshData = () => {
-        router.replace(router.asPath);
+        mutate('/api/kittendatapost');
     };
 
     const [session] = useSession();
@@ -55,15 +47,15 @@ const Draft: React.FC<Props> = (props) => {
     }
     const [startWeight, setStartWeight] = useState(350);
     const [finalWeight, setFinalWeight] = useState(350);
-    const [time, setTime] = useState(new Date());
-    const [kitten, setKitten] = useState(null);
+    const [selectedTime, setSelectedTime] = useState(new Date());
+    const [selectedKitten, setSelectedKitten] = useState(null);
     let [loading, setLoading] = useState(false);
 
     const submitData = async (e: React.SyntheticEvent) => {
         e.preventDefault();
 
         setLoading(true);
-        const body = { startWeight, finalWeight, kitten, time };
+        const body = { startWeight, finalWeight, selectedKitten, selectedTime };
         await fetch(`/api/kittendatapost`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -73,12 +65,12 @@ const Draft: React.FC<Props> = (props) => {
                 refreshData();
                 setTimeout(function () {
                     setLoading(false);
-                }, 500);
+                }, 200);
             })
             .catch((error) => {
                 setTimeout(function () {
                     setLoading(false);
-                }, 500);
+                }, 200);
                 console.error(error);
                 refreshData();
             });
@@ -92,10 +84,10 @@ const Draft: React.FC<Props> = (props) => {
                     <div className="text-2xl font-bold text-blue-700">New Data Entry</div>
                     <div className="pt-6 font-light text-gray-600">Kitten Name</div>
                     <Select
-                        onChange={(e) => setKitten(e)}
+                        onChange={(e) => setSelectedKitten(e)}
                         placeholder="Kitten Name"
                         options={kittenOptions}
-                        value={kitten}
+                        value={selectedKitten}
                     />
                     <div className="grid grid-cols-2 gap-4 pt-3 mx-auto">
                         <div>
@@ -123,10 +115,12 @@ const Draft: React.FC<Props> = (props) => {
                     </div>
                     <div className="py-4">
                         <div className="font-light text-gray-600">Time</div>
-                        <DatePicker
-                            defaultValue={new Date()}
-                            onChange={(value) => setTime(value)}
-                            includeTime
+                        <DateTimePicker
+                            autoOk
+                            inputVariant="outlined"
+                            value={selectedTime}
+                            onChange={(value) => setSelectedTime(value)}
+                            showTodayButton
                         />
                     </div>
 
@@ -150,10 +144,10 @@ const Draft: React.FC<Props> = (props) => {
                         </div>
                     )}
                 </form>
-                {kitten && (
+                {selectedKitten && (
                     <div className="pt-4">
                         <KittenDataTable
-                            kittenData={props.kittens[kitten?.value - 1].datapoints}
+                            kittenData={data[selectedKitten?.value - 1].datapoints}
                             refreshData={refreshData}></KittenDataTable>
                     </div>
                 )}

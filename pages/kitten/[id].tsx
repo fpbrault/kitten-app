@@ -7,7 +7,6 @@ import prisma from '../../lib/prisma';
 import { useSession } from 'next-auth/client';
 import KittenPost from '../../components/KittenPost';
 import dynamic from 'next/dynamic';
-import Router from 'next/router';
 
 const LineChart = dynamic(() => import('../../components/LineChart'), { ssr: false });
 
