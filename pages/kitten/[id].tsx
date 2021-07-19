@@ -252,9 +252,9 @@ const Kitten: React.FC<Props> = (props) => {
             <pre>{JSON.stringify(highRange, null, '\t')}</pre> */}
             {/* <pre>{JSON.stringify(props.datapoints[0], null, '\t')}</pre> */}
 
-            <div className="flex justify-center pt-4 bg-base-content">
+            <div className="flex justify-center pt-4 mx-2 bg-base-100">
                 <div className="flex flex-col flex-wrap w-full mx-auto">
-                    <div className="w-full mx-auto mb-4 text-center max-w-7xl collapse rounded-box border-base-300">
+                    <div className="w-full mx-auto mb-4 text-center max-w-7xl collapse rounded-box border-base-300 bg-base-content">
                         <input type="checkbox" />
                         <div className="text-xl font-medium max-w-1xl text-neutral-content collapse-title">
                             Click to show charts
