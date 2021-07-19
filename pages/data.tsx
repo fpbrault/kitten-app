@@ -36,7 +36,7 @@ const Draft: React.FC<Props> = (props) => {
 
     const [session] = useSession();
 
-    if (session) {
+    if (!session) {
         return (
             <Layout>
                 <div className="max-w-4xl p-8 m-auto mt-24">
