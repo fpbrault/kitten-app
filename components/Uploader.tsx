@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import React from 'react';
 import AwsS3 from '@uppy/aws-s3';
 import Uppy from '@uppy/core';
@@ -8,7 +7,11 @@ import '@uppy/core/dist/style.css';
 import '@uppy/dashboard/dist/style.css';
 import '@uppy/image-editor/dist/style.css';
 
-const ImageUpload: React.FC<{ setImage: (image: string) => void }> = (props) => {
+interface ChildProps {
+    changeImageUrl: (url: string) => void;
+}
+
+const ImageUpload: React.FC<ChildProps> = ({ changeImageUrl }) => {
     const uppy = Uppy<Uppy.StrictTypes>({
         autoProceed: false,
         allowMultipleUploads: false,
@@ -55,7 +58,7 @@ const ImageUpload: React.FC<{ setImage: (image: string) => void }> = (props) => 
     });
 
     uppy.on('upload-success', (file, data) => {
-        props.setImage(data.uploadURL);
+        changeImageUrl(data.uploadURL);
     });
 
     uppy.use(ImageEditor, {
