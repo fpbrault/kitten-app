@@ -36,7 +36,7 @@ const Draft: React.FC<Props> = (props) => {
 
     const [session] = useSession();
 
-    if (!session) {
+    if (session) {
         return (
             <Layout>
                 <div className="max-w-4xl p-8 m-auto mt-24">
@@ -127,14 +127,15 @@ const Draft: React.FC<Props> = (props) => {
                     {loading ? (
                         <HeartsLoader />
                     ) : (
-                        <div>
+                        <div className="btn-group">
                             <input
-                                className="p-1 mr-2 font-bold text-blue-700 transition-colors rounded max-w-max lg:py-2 lg:px-2 lg:inline-block lg:mt-0 hover:text-white hover:bg-blue-700"
+                                disabled={!selectedKitten}
+                                className="btn btn-primary"
                                 type="submit"
                                 value="Create"
                             />
                             <a
-                                className="py-2 ml-2 font-bold text-black transition-colors rounded lg:px-2 text-md hover:text-red-500 lg:mt-0"
+                                className="btn btn-ghost btn-accent"
                                 href="#"
                                 onClick={() => Router.push('/')}>
                                 Cancel

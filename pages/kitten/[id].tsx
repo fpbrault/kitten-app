@@ -213,20 +213,19 @@ const Kitten: React.FC<Props> = (props) => {
 
     return (
         <Layout>
-            <div className="z-20 flex flex-col justify-center w-full pt-20 border-b-2 border-charcoal bg-pastel-pink">
-                <div className="mx-auto text-6xl font-light text-charcoal">{props.kitten.name}</div>
+            <div className="z-20 flex flex-col justify-center w-full pt-20 border-b-2 bg-base-300 text-neutral">
+                <div className="mx-auto text-6xl font-light ">{props.kitten.name}</div>
 
                 <Link href={'/litter/' + props.kitten.litter?.id}>
                     <div className="font-bold text-center hover:text-blue-600">
                         {props?.kitten.litter?.name || 'Unknown litter'}
                     </div>
                 </Link>
-
-                <img
-                    src={props.kitten.image}
-                    className="object-cover w-24 h-24 mx-auto border-2 rounded-full border-charcoal sm:w-40 sm:h-40"
-                    alt={props.kitten.name}
-                />
+                <div className="mx-auto avatar">
+                    <div className="w-32 h-32 rounded-full">
+                        <img src={props.kitten.image} alt={props.kitten.name} />
+                    </div>
+                </div>
                 {userHasValidSession ? (
                     <div className="flex flex-row items-center justify-center my-2 ">
                         <Link href={'/create'}>
@@ -252,11 +251,20 @@ const Kitten: React.FC<Props> = (props) => {
             {/*             <pre>{JSON.stringify(lowRange, null, '\t')}</pre>
             <pre>{JSON.stringify(highRange, null, '\t')}</pre> */}
             {/* <pre>{JSON.stringify(props.datapoints[0], null, '\t')}</pre> */}
-            <div className="flex justify-center pt-4 bg-gray-100">
+
+            <div className="flex justify-center pt-4 bg-base-content">
                 <div className="flex flex-col flex-wrap w-full mx-auto">
-                    <div className="grid w-full grid-cols-1 gap-2 mx-auto mb-4 text-center lg:grid-cols-2 max-w-7xl ">
-                        <LineChart data={data} type="line"></LineChart>
-                        <LineChart data={data2} type="line"></LineChart>
+                    <div className="w-full mx-auto mb-4 text-center max-w-7xl collapse rounded-box border-base-300">
+                        <input type="checkbox" />
+                        <div className="text-xl font-medium max-w-1xl text-neutral-content collapse-title">
+                            Click to show charts
+                        </div>
+                        <div className="collapse-content">
+                            <div className="grid w-full grid-cols-1 gap-2 mx-auto mb-4 text-center lg:grid-cols-2 max-w-7xl ">
+                                <LineChart data={data} type="line"></LineChart>
+                                <LineChart data={data2} type="line"></LineChart>
+                            </div>
+                        </div>
                     </div>
                     {props.kitten.posts.map((post) => (
                         <KittenPost key={post.id} post={post} />

@@ -51,6 +51,7 @@ const Draft: React.FC<Props> = (props) => {
 
     const submitData = async (e: React.SyntheticEvent) => {
         e.preventDefault();
+        setLoading(true);
         try {
             const body = { title, content, type, kitten, image };
             await fetch(`/api/post`, {
@@ -58,8 +59,14 @@ const Draft: React.FC<Props> = (props) => {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(body)
             });
+            setTimeout(function () {
+                setLoading(false);
+            }, 200);
             await Router.push('/drafts');
         } catch (error) {
+            setTimeout(function () {
+                setLoading(false);
+            }, 200);
             console.error(error);
         }
     };
@@ -76,10 +83,11 @@ const Draft: React.FC<Props> = (props) => {
     const kittenOptions = props.kittens.map((x) => ({ value: x.id, label: x.name }));
     return (
         <Layout>
-            <div className="max-w-4xl p-8 m-auto mt-24">
+            <div className="max-w-4xl p-8 m-auto">
                 <form onSubmit={submitData}>
-                    <div className="text-2xl font-bold text-blue-700">New Draft</div>
+                    <div className="text-2xl font-bold text-blue-700 form-control">New Draft</div>
                     <input
+                        className="w-full my-2 input-sm input input-bordered"
                         onChange={(e) => setTitle(e.target.value)}
                         placeholder="Title"
                         type="text"
@@ -95,7 +103,7 @@ const Draft: React.FC<Props> = (props) => {
                     />
                     {type['value'] == 'kitten' ? (
                         <Select
-                            className="pt-3"
+                            className="pt-2"
                             onChange={(e) => setKitten(e)}
                             defaultValue={kittenOptions[1]}
                             placeholder="Kitten Name"
@@ -105,6 +113,7 @@ const Draft: React.FC<Props> = (props) => {
                     ) : null}
 
                     <input
+                        className="w-full my-2 input-sm input input-bordered"
                         onChange={(e) => setImage(e.target.value)}
                         placeholder="Image"
                         type="text"
@@ -149,8 +158,11 @@ const Draft: React.FC<Props> = (props) => {
                                 type="submit"
                                 value="Create"
                             />
-                            <a className="btn" href="#" onClick={() => Router.push('/')}>
-                                or Cancel
+                            <a
+                                className="btn btn-ghost btn-accent"
+                                href="#"
+                                onClick={() => Router.push('/')}>
+                                Cancel
                             </a>{' '}
                         </div>
                     )}

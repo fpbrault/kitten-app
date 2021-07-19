@@ -135,7 +135,7 @@ const Header: React.FC = () => {
     }
 
     return (
-        <nav className="mb-2 shadow-lg navbar bg-primary text-neutral-content ">
+        <nav className="fixed z-20 w-full shadow-lg navbar bg-primary text-neutral-content ">
             <div className="px-2 mx-2 navbar-start">
                 <div className="flex-1 px-2 mx-2">
                     <Link href="/">

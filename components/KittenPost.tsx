@@ -15,7 +15,7 @@ const KittenPost: React.FC<{ post: KittenPostProps }> = ({ post }) => {
     let day = new Date(post.createdAt).toDateString();
     return (
         <>
-            <div className="flex flex-col items-center max-w-3xl mx-auto mb-4 text-center transition-shadow bg-white border border-gray-300 rounded hover:shadow-md">
+            <div className="flex flex-col items-center max-w-3xl mx-auto mb-4 text-center shadow-2xl card bg-base-100">
                 {post?.image ? (
                     <Link href={'/post/' + post.id}>
                         <a>
@@ -27,7 +27,7 @@ const KittenPost: React.FC<{ post: KittenPostProps }> = ({ post }) => {
                         </a>
                     </Link>
                 ) : null}
-                <div className="flex flex-col flex-wrap content-between px-6 py-4">
+                <div className="card-body">
                     <Link href={'/post/' + post.id}>
                         <a className="mb-2 text-4xl font-bold hover:text-blue-500">{post.title}</a>
                     </Link>
