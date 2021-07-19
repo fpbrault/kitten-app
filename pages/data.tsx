@@ -10,8 +10,8 @@ import NumberPicker from 'react-widgets/NumberPicker';
 import { KittenDataPostProps } from '../components/KittenDataPost';
 import { useSession } from 'next-auth/client';
 import KittenDataTable from '../components/KittenDataTable';
-import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
-import Loader from 'react-loader-spinner';
+import HeartsLoader from '../components/HeartsLoader';
+
 import { DateTimePicker } from '@material-ui/pickers';
 
 const fetcher = (url) => fetch(url).then((res) => res.json());
@@ -125,9 +125,7 @@ const Draft: React.FC<Props> = (props) => {
                     </div>
 
                     {loading ? (
-                        <div className="flex justify-center">
-                            <Loader type="ThreeDots" color="#00BFFF" height={50} width={50} />
-                        </div>
+                        <HeartsLoader />
                     ) : (
                         <div>
                             <input
@@ -152,15 +150,6 @@ const Draft: React.FC<Props> = (props) => {
                     </div>
                 )}
             </div>
-            <style jsx>{`
-                .page {
-                    background: white;
-                    padding: 1rem;
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                }
-            `}</style>
         </Layout>
     );
 };

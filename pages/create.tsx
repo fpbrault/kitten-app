@@ -9,6 +9,8 @@ import ReactMde from 'react-mde';
 import ReactMarkdown from 'react-markdown';
 import 'react-mde/lib/styles/css/react-mde-all.css';
 import { useSession } from 'next-auth/client';
+import ImageUpload from '../components/Uploader';
+import HeartsLoader from '../components/HeartsLoader';
 
 export const getServerSideProps: GetServerSideProps = async () => {
     const kittens = await prisma.kitten.findMany({
@@ -28,6 +30,7 @@ type Props = {
 
 const Draft: React.FC<Props> = (props) => {
     const [session] = useSession();
+
     if (!session) {
         return (
             <Layout>
@@ -42,6 +45,8 @@ const Draft: React.FC<Props> = (props) => {
     const [type, setType] = useState('');
     const [image, setImage] = useState('');
     const [kitten, setKitten] = useState('');
+    let [uploaderVisible, setUploaderVisible] = useState(false);
+    let [loading, setLoading] = useState(false);
     const [selectedTab, setSelectedTab] = useState<'write' | 'preview'>('write');
 
     const submitData = async (e: React.SyntheticEvent) => {
@@ -67,15 +72,15 @@ const Draft: React.FC<Props> = (props) => {
     const kittenOptions = props.kittens.map((x) => ({ value: x.id, label: x.name }));
     return (
         <Layout>
-            <div className="max-w-4xl p-8 m-auto">
+            <div className="max-w-4xl p-8 m-auto mt-24">
                 <form onSubmit={submitData}>
-                    {JSON.stringify(type == 'kitten')}
-                    <h1>New Draft</h1>
+                    <div className="text-2xl font-bold text-blue-700">New Draft</div>
                     <input
                         onChange={(e) => setTitle(e.target.value)}
                         placeholder="Title"
                         type="text"
                         value={title}
+                        id="title"
                     />
                     <Select
                         onChange={(e) => setType(e)}
@@ -94,63 +99,59 @@ const Draft: React.FC<Props> = (props) => {
                             value={kitten}
                         />
                     ) : null}
+
                     <input
                         onChange={(e) => setImage(e.target.value)}
                         placeholder="Image"
                         type="text"
                         value={image}
                     />
-                    <ReactMde
-                        value={content}
-                        onChange={setContent}
-                        selectedTab={selectedTab}
-                        onTabChange={setSelectedTab}
-                        generateMarkdownPreview={(markdown) =>
-                            Promise.resolve(<ReactMarkdown>{markdown}</ReactMarkdown>)
-                        }
-                        childProps={{
-                            writeButton: {
-                                tabIndex: -1
-                            }
-                        }}
+                    <input
+                        className="font-thin text-black transition-colors bg-transparent hover:text-blue-700"
+                        type="button"
+                        value="Upload an image?"
+                        onClick={() => setUploaderVisible(true)}
                     />
-                    <input disabled={!content || !title} type="submit" value="Create" />
-                    <a className="back" href="#" onClick={() => Router.push('/')}>
-                        or Cancel
-                    </a>
+                    {uploaderVisible ? (
+                        <>
+                            <div className="max-w-4xl py-2 m-auto">
+                                <ImageUpload open={uploaderVisible} setImage={setImage} />
+                            </div>
+                        </>
+                    ) : null}
+                    <div className="py-4">
+                        <ReactMde
+                            value={content}
+                            onChange={setContent}
+                            selectedTab={selectedTab}
+                            onTabChange={setSelectedTab}
+                            generateMarkdownPreview={(markdown) =>
+                                Promise.resolve(<ReactMarkdown>{markdown}</ReactMarkdown>)
+                            }
+                            childProps={{
+                                writeButton: {
+                                    tabIndex: -1
+                                }
+                            }}
+                        />
+                    </div>
+                    {loading ? (
+                        <HeartsLoader />
+                    ) : (
+                        <div className="btn-group">
+                            <input
+                                disabled={!content || !title}
+                                className="btn btn-primary"
+                                type="submit"
+                                value="Create"
+                            />
+                            <a className="btn" href="#" onClick={() => Router.push('/')}>
+                                or Cancel
+                            </a>{' '}
+                        </div>
+                    )}
                 </form>
             </div>
-            <style jsx>{`
-                .page {
-                    background: white;
-                    padding: 3rem;
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                }
-
-                input[type='text'],
-                textarea {
-                    width: 100%;
-                    padding: 0.5rem;
-                    margin: 0.5rem 0;
-                    border-radius: 0.25rem;
-                    border: 0.125rem solid rgba(0, 0, 0, 0.2);
-                }
-
-                .mde-preview {
-                    background: white;
-                }
-                input[type='submit'] {
-                    background: #ececec;
-                    border: 0;
-                    padding: 1rem 2rem;
-                }
-
-                .back {
-                    margin-left: 1rem;
-                }
-            `}</style>
         </Layout>
     );
 };

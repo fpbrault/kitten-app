@@ -2,11 +2,9 @@ import { Provider } from 'next-auth/client';
 import Head from 'next/head';
 import { AppProps } from 'next/app';
 import React from 'react';
-import 'tailwindcss/tailwind.css';
-import { Auth } from '@supabase/ui';
+import '../styles/globals.css';
 import DateFnsUtils from '@date-io/date-fns';
 import { MuiPickersUtilsProvider } from '@material-ui/pickers';
-import { supabase } from '../lib/supabaseClient';
 
 const App = ({ Component, pageProps }: AppProps) => {
     return (
@@ -31,6 +29,11 @@ const App = ({ Component, pageProps }: AppProps) => {
                     href="https://fonts.googleapis.com/icon?family=Material+Icons"
                 />
                 <meta name="theme-color" content="#317EFB" />
+                <link
+                    href="https://cdn.jsdelivr.net/npm/daisyui@1.10.0/dist/themes.css"
+                    rel="stylesheet"
+                    type="text/css"
+                />
             </Head>
             <MuiPickersUtilsProvider utils={DateFnsUtils}>
                 <Component {...pageProps} />
