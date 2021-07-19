@@ -69,6 +69,10 @@ const Draft: React.FC<Props> = (props) => {
         { value: 'kitten', label: 'Kitten Post' }
     ];
 
+    const changeImageUrl = (url: string): void => {
+        setImage(url);
+    };
+
     const kittenOptions = props.kittens.map((x) => ({ value: x.id, label: x.name }));
     return (
         <Layout>
@@ -115,7 +119,7 @@ const Draft: React.FC<Props> = (props) => {
                     {uploaderVisible ? (
                         <>
                             <div className="max-w-4xl py-2 m-auto">
-                                <ImageUpload open={uploaderVisible} setImage={setImage} />
+                                <ImageUpload changeImageUrl={changeImageUrl} />
                             </div>
                         </>
                     ) : null}
