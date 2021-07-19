@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React from 'react';
 import AwsS3 from '@uppy/aws-s3';
 import Uppy from '@uppy/core';
@@ -6,9 +7,8 @@ import ImageEditor from '@uppy/image-editor';
 import '@uppy/core/dist/style.css';
 import '@uppy/dashboard/dist/style.css';
 import '@uppy/image-editor/dist/style.css';
-import { Props } from 'react';
 
-const ImageUpload: React.FC<Props> = (props) => {
+const ImageUpload: React.FC<{ setImage: (image: string) => void }> = (props) => {
     const uppy = Uppy<Uppy.StrictTypes>({
         autoProceed: false,
         allowMultipleUploads: false,
