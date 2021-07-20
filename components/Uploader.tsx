@@ -14,7 +14,7 @@ interface ChildProps {
 const ImageUpload: React.FC<ChildProps> = ({ changeImageUrl }) => {
     const uppy = Uppy<Uppy.StrictTypes>({
         autoProceed: false,
-        allowMultipleUploads: true,
+        allowMultipleUploads: false,
         debug: false,
         restrictions: {
             maxNumberOfFiles: 1,
@@ -92,7 +92,7 @@ const ImageUpload: React.FC<ChildProps> = ({ changeImageUrl }) => {
                 uppy={uppy}
                 width={1000}
                 height={500}
-                theme={'dark'}
+                theme={'light'}
                 plugins={['ImageEditor']}
             />
         </>

@@ -78,12 +78,13 @@ const Draft: React.FC<Props> = (props) => {
 
     const changeImageUrl = (url: string): void => {
         setImage(url);
+        setUploaderVisible(false);
     };
 
     const kittenOptions = props.kittens.map((x) => ({ value: x.id, label: x.name }));
     return (
         <Layout>
-            <div className="max-w-4xl p-8 m-auto">
+            <div className="max-w-4xl p-8 m-auto mt-24">
                 <form onSubmit={submitData}>
                     <div className="text-2xl font-bold text-blue-700 form-control">New Draft</div>
                     <input

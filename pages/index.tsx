@@ -55,7 +55,7 @@ const Blog: React.FC<Props> = (props) => {
                     </div>
                 </div>
             </header> */}
-            <div className="pt-24 bg-base-200">
+            <div className="pt-24 mx-2 bg-base-200">
                 {props.feed.map((post) => (
                     <div key={post.id} className="post">
                         <Post post={post} />

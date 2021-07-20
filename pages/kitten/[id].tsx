@@ -254,13 +254,13 @@ const Kitten: React.FC<Props> = (props) => {
 
             <div className="flex justify-center pt-4 mx-2 bg-base-100">
                 <div className="flex flex-col flex-wrap w-full mx-auto">
-                    <div className="w-full mx-auto mb-4 text-center max-w-7xl collapse rounded-box border-base-300 bg-base-content">
+                    <div className="w-full max-w-3xl mx-auto mb-4 text-center collapse rounded-box border-base-300 bg-base-content">
                         <input type="checkbox" />
                         <div className="text-xl font-medium max-w-1xl text-neutral-content collapse-title">
                             Click to show charts
                         </div>
                         <div className="collapse-content">
-                            <div className="grid w-full grid-cols-1 gap-2 mx-auto mb-4 text-center lg:grid-cols-2 max-w-7xl ">
+                            <div className="grid w-full grid-cols-1 gap-2 mx-auto mb-4 text-center lg:grid-cols-1 max-w-7xl ">
                                 <LineChart data={data} type="line"></LineChart>
                                 <LineChart data={data2} type="line"></LineChart>
                             </div>

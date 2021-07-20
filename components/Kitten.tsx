@@ -23,7 +23,7 @@ const Kitten: React.FC<{ kitten: KittenProps }> = ({ kitten }) => {
     const litterName = kitten.litter ? kitten.litter.name : null;
     return (
         <Link href={'/kitten/' + kitten.id}>
-            <div className="grid items-center justify-center max-w-xs grid-cols-2 mx-auto text-center transition-colors bg-gray-200 rounded shadow-md border-1 hover:bg-blue-500 ">
+            <div className="grid items-center justify-center max-w-xs grid-cols-2 mx-auto text-center transition-colors shadow-xl hover:shadow-2xl card bg-base-300 ">
                 <img src={kitten.image} className="object-cover w-40 h-40" alt={kitten.name} />
                 <div>
                     <div className="text-2xl">{kitten.name}</div>
