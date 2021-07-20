@@ -13,7 +13,7 @@ export default async function handle(req: NextApiRequest, res: NextApiResponse):
 
     const session = await getSession({ req });
 
-    if (!session) {
+    if (session) {
         const s3 = new aws.S3();
         const params = {
             Bucket: process.env.BUCKET_NAME,
