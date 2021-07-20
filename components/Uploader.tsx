@@ -14,8 +14,8 @@ interface ChildProps {
 const ImageUpload: React.FC<ChildProps> = ({ changeImageUrl }) => {
     const uppy = Uppy<Uppy.StrictTypes>({
         autoProceed: false,
-        allowMultipleUploads: false,
-        debug: true,
+        allowMultipleUploads: true,
+        debug: false,
         restrictions: {
             maxNumberOfFiles: 1,
             minNumberOfFiles: 1,
@@ -66,7 +66,7 @@ const ImageUpload: React.FC<ChildProps> = ({ changeImageUrl }) => {
         quality: 0.8,
         cropperOptions: {
             viewMode: 1,
-            background: false,
+            background: true,
             autoCropArea: 1,
             responsive: true
         },
@@ -92,7 +92,7 @@ const ImageUpload: React.FC<ChildProps> = ({ changeImageUrl }) => {
                 uppy={uppy}
                 width={1000}
                 height={500}
-                theme={'light'}
+                theme={'dark'}
                 plugins={['ImageEditor']}
             />
         </>
