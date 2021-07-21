@@ -10,6 +10,11 @@ export const getServerSideProps: GetServerSideProps = async () => {
             published: true,
             type: 'blog'
         },
+        orderBy: [
+            {
+                createdAt: 'desc'
+            }
+        ],
         include: {
             author: {
                 select: {

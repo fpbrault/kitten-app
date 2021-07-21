@@ -19,7 +19,14 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
             litter: {
                 select: { name: true, id: true }
             },
-            posts: { where: { published: true } },
+            posts: {
+                where: { published: true },
+                orderBy: [
+                    {
+                        createdAt: 'desc'
+                    }
+                ]
+            },
             datapoints: {}
         }
     });

@@ -86,7 +86,7 @@ const Draft: React.FC<Props> = (props) => {
         <Layout>
             <div className="max-w-4xl p-8 m-auto mt-24">
                 <form onSubmit={submitData}>
-                    <div className="text-2xl font-bold text-blue-700 form-control">New Draft</div>
+                    <div className="text-2xl font-bold text-primary form-control">New Draft</div>
                     <input
                         className="w-full my-2 input-sm input input-bordered"
                         onChange={(e) => setTitle(e.target.value)}

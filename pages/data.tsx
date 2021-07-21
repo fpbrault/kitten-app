@@ -81,7 +81,7 @@ const Draft: React.FC<Props> = (props) => {
         <Layout>
             <div className="max-w-4xl p-8 m-auto mt-24">
                 <form onSubmit={submitData}>
-                    <div className="text-2xl font-bold text-blue-700">New Data Entry</div>
+                    <div className="text-2xl font-bold text-primary">New Data Entry</div>
                     <div className="pt-6 font-light text-gray-600">Kitten Name</div>
                     <Select
                         onChange={(e) => setSelectedKitten(e)}
