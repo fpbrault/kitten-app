@@ -368,8 +368,8 @@ const Draft: React.FC<Props> = () => {
                             <div className="pt-4">
                                 <KittenDataTable
                                     kittenData={
-                                        data.kittens.filter((x) => x.id === selectedKitten.value)
-                                            ? data.kittens.filter(
+                                        data.kittens.find((x) => x.id === selectedKitten.value)
+                                            ? data.kittens.find(
                                                   (x) => x.id === selectedKitten.value
                                               ).datapoints
                                             : null
