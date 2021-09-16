@@ -44,7 +44,7 @@ const Draft: React.FC<Props> = () => {
 
     const [session] = useSession();
 
-    if (!session) {
+    if (session) {
         return (
             <Layout>
                 <div className="max-w-4xl p-8 m-auto mt-24">
@@ -367,7 +367,13 @@ const Draft: React.FC<Props> = () => {
                         {selectedKitten && type['value'] == 'data' ? (
                             <div className="pt-4">
                                 <KittenDataTable
-                                    kittenData={data.kittens[selectedKitten?.value - 1].datapoints}
+                                    kittenData={
+                                        data.kittens.filter((x) => x.id === selectedKitten.value)
+                                            ? data.kittens.filter(
+                                                  (x) => x.id === selectedKitten.value
+                                              ).datapoints
+                                            : null
+                                    }
                                     refreshData={refreshData}></KittenDataTable>
                             </div>
                         ) : null}
