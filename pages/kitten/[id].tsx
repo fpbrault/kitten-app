@@ -229,8 +229,12 @@ const Kitten: React.FC<Props> = (props) => {
                     </div>
                 </Link>
                 <div className="mx-auto avatar">
-                    <div className="w-32 h-32 rounded-full">
-                        <img src={props.kitten.image} alt={props.kitten.name} />
+                    <div className={props.kitten.image ? 'w-32 h-32 rounded-full' : 'w-32 h-32'}>
+                        {props.kitten.image ? (
+                            <img src={props.kitten.image} alt={props.kitten.name} />
+                        ) : (
+                            <img src="/cat.png" alt={props.kitten.name} />
+                        )}
                     </div>
                 </div>
                 {userHasValidSession ? (

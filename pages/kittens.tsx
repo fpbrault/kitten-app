@@ -26,7 +26,7 @@ type Props = {
 const Kittens: React.FC<Props> = (props) => {
     return (
         <Layout>
-            <div className="grid max-w-3xl grid-cols-1 gap-2 pt-24 mx-auto md:grid-cols-2 ">
+            <div className="grid max-w-4xl grid-cols-1 gap-2 pt-32 mx-auto md:grid-cols-2 ">
                 {props.feed.map((kitten) => (
                     <div key={kitten.id} className="mb-4">
                         <Kitten kitten={kitten} />

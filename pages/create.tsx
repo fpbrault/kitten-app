@@ -85,89 +85,95 @@ const Draft: React.FC<Props> = (props) => {
     return (
         <Layout>
             <div className="max-w-4xl p-8 m-auto mt-24">
-                <form onSubmit={submitData}>
-                    <div className="text-2xl font-bold text-primary form-control">New Draft</div>
-                    <input
-                        className="w-full my-2 input-sm input input-bordered"
-                        onChange={(e) => setTitle(e.target.value)}
-                        placeholder="Title"
-                        type="text"
-                        value={title}
-                        id="title"
-                    />
-                    <Select
-                        onChange={(e) => setType(e)}
-                        defaultValue={typeOptions[1]}
-                        placeholder="Post Type"
-                        options={typeOptions}
-                        value={type}
-                    />
-                    {type['value'] == 'kitten' ? (
-                        <Select
-                            className="pt-2"
-                            onChange={(e) => setKitten(e)}
-                            defaultValue={kittenOptions[1]}
-                            placeholder="Kitten Name"
-                            options={kittenOptions}
-                            value={kitten}
-                        />
-                    ) : null}
-
-                    <input
-                        className="w-full my-2 input-sm input input-bordered"
-                        onChange={(e) => setImage(e.target.value)}
-                        placeholder="Image"
-                        type="text"
-                        value={image}
-                    />
-                    <input
-                        className="font-thin text-black transition-colors bg-transparent hover:text-blue-700"
-                        type="button"
-                        value="Upload an image?"
-                        onClick={() => setUploaderVisible(true)}
-                    />
-                    {uploaderVisible ? (
-                        <>
-                            <div className="max-w-4xl py-2 m-auto">
-                                <ImageUpload changeImageUrl={changeImageUrl} />
+                <div className="shadow-lg card bg-base-200 text-accent">
+                    <div className="card-body">
+                        <form onSubmit={submitData}>
+                            <div className="text-2xl font-bold text-primary form-control card-title">
+                                New Draft
                             </div>
-                        </>
-                    ) : null}
-                    <div className="py-4">
-                        <ReactMde
-                            value={content}
-                            onChange={setContent}
-                            selectedTab={selectedTab}
-                            onTabChange={setSelectedTab}
-                            generateMarkdownPreview={(markdown) =>
-                                Promise.resolve(<ReactMarkdown>{markdown}</ReactMarkdown>)
-                            }
-                            childProps={{
-                                writeButton: {
-                                    tabIndex: -1
-                                }
-                            }}
-                        />
-                    </div>
-                    {loading ? (
-                        <HeartsLoader />
-                    ) : (
-                        <div className="btn-group">
                             <input
-                                disabled={!content || !title}
-                                className="btn btn-primary"
-                                type="submit"
-                                value="Create"
+                                className="w-full my-2 input-sm input input-bordered"
+                                onChange={(e) => setTitle(e.target.value)}
+                                placeholder="Title"
+                                type="text"
+                                value={title}
+                                id="title"
                             />
-                            <a
-                                className="btn btn-ghost btn-accent"
-                                href="#"
-                                onClick={() => Router.push('/')}>
-                                Cancel
-                            </a>{' '}
-                        </div>
-                    )}
-                </form>
+                            <Select
+                                onChange={(e) => setType(e)}
+                                defaultValue={typeOptions[1]}
+                                placeholder="Post Type"
+                                options={typeOptions}
+                                value={type}
+                            />
+                            {type['value'] == 'kitten' ? (
+                                <Select
+                                    className="pt-2"
+                                    onChange={(e) => setKitten(e)}
+                                    defaultValue={kittenOptions[1]}
+                                    placeholder="Kitten Name"
+                                    options={kittenOptions}
+                                    value={kitten}
+                                />
+                            ) : null}
+
+                            <input
+                                className="w-full my-2 input-sm input input-bordered"
+                                onChange={(e) => setImage(e.target.value)}
+                                placeholder="Image"
+                                type="text"
+                                value={image}
+                            />
+                            <input
+                                className="font-thin transition-colors bg-transparent hover:text-secondary"
+                                type="button"
+                                value="Upload an image?"
+                                onClick={() => setUploaderVisible(true)}
+                            />
+                            {uploaderVisible ? (
+                                <>
+                                    <div className="max-w-4xl py-2 m-auto">
+                                        <ImageUpload changeImageUrl={changeImageUrl} />
+                                    </div>
+                                </>
+                            ) : null}
+                            <div className="py-4">
+                                <ReactMde
+                                    value={content}
+                                    onChange={setContent}
+                                    selectedTab={selectedTab}
+                                    onTabChange={setSelectedTab}
+                                    generateMarkdownPreview={(markdown) =>
+                                        Promise.resolve(<ReactMarkdown>{markdown}</ReactMarkdown>)
+                                    }
+                                    childProps={{
+                                        writeButton: {
+                                            tabIndex: -1
+                                        }
+                                    }}
+                                />
+                            </div>
+                            {loading ? (
+                                <HeartsLoader />
+                            ) : (
+                                <div className="btn-group">
+                                    <input
+                                        disabled={!content || !title}
+                                        className="btn btn-primary"
+                                        type="submit"
+                                        value="Create"
+                                    />
+                                    <a
+                                        className="btn btn-ghost btn-accent"
+                                        href="#"
+                                        onClick={() => Router.push('/')}>
+                                        Cancel
+                                    </a>{' '}
+                                </div>
+                            )}
+                        </form>
+                    </div>{' '}
+                </div>{' '}
             </div>
         </Layout>
     );

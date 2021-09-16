@@ -6,20 +6,25 @@ import { getSession } from 'next-auth/client';
 // Required fields in body: title
 // Optional fields in body: content
 export default async function handle(req: NextApiRequest, res: NextApiResponse): Promise<void> {
-    const { title, content } = req.body;
+    const { litterName, litterDescription } = req.body;
 
     const session = await getSession({ req });
-    if (session) {
-        const result = await prisma.post.create({
-            data: {
-                title: title,
-                content: content,
-                author: { connect: { email: session?.user?.email } }
-            }
-        });
-        res.json(result);
+    if (req.method === 'POST') {
+        if (session) {
+            const result = await prisma.litter.create({
+                data: {
+                    name: litterName,
+                    description: litterDescription
+                }
+            });
+            res.status(200);
+            res.json(result);
+        } else {
+            res.status(403);
+            res.statusMessage = 'Access Denied';
+            res.end();
+        }
     } else {
-        res.status(403);
-        res.end();
+        throw new Error(`The HTTP ${req.method} method is not supported at this route.`);
     }
 }
