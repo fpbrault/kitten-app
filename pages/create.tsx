@@ -85,7 +85,7 @@ const Draft: React.FC<Props> = (props) => {
     return (
         <Layout>
             <div className="max-w-4xl p-8 m-auto mt-24">
-                <div className="shadow-lg card bg-base-200 text-accent">
+                <div className="shadow-lg card bg-base-100 text-accent">
                     <div className="card-body">
                         <form onSubmit={submitData}>
                             <div className="text-2xl font-bold text-primary form-control card-title">

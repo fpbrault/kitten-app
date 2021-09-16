@@ -44,7 +44,7 @@ const Draft: React.FC<Props> = () => {
 
     const [session] = useSession();
 
-    if (session) {
+    if (!session) {
         return (
             <Layout>
                 <div className="max-w-4xl p-8 m-auto mt-24">
@@ -194,7 +194,7 @@ const Draft: React.FC<Props> = () => {
         <Layout>
             <ToastContainer />
             <div className="max-w-4xl p-8 m-auto mt-24">
-                <div className="shadow-lg card bg-base-200 text-accent">
+                <div className="shadow-lg card bg-base-100 text-accent">
                     <div className="card-body">
                         <form onSubmit={submitData}>
                             <div className="text-2xl font-bold text-primary card-title">
