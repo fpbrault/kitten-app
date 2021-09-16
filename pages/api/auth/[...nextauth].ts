@@ -25,10 +25,12 @@ export default NextAuth({
     },
     callbacks: {
         signIn: async (user, account, profile) => {
+            console.log(profile.email);
+            console.log(profile.email === 'fpbrault@gmail.com');
             if (
-                account.provider === 'github' &&
-                profile.login === 'fpbrault'
-                //profile.email.endsWith('@gmail.com')
+                (account.provider === 'github' && profile.login === 'fpbrault') ||
+                profile.email === 'fpbrault@gmail.com' ||
+                profile.email === 'kathryn.grce@gmail.com'
             ) {
                 return Promise.resolve(true);
             } else {
