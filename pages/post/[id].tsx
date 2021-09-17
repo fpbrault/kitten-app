@@ -51,7 +51,7 @@ const Post: React.FC<PostProps> = (props) => {
     }
 
     return (
-        <Layout>
+        <Layout pageTitle={'Les Petits Chatons - Blog - ' + title}>
             <div className="flex flex-col items-center min-h-screen py-16 text-center bg-white rounded hover:shadow-lg">
                 {props?.image ? (
                     <img

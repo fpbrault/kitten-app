@@ -35,7 +35,7 @@ const Litter: React.FC<Props> = (props) => {
     }
 
     return (
-        <Layout>
+        <Layout pageTitle={'Les Petits Chatons - ' + props.name}>
             <div className="flex flex-col justify-center p-4 pt-24 mt-4 align-center">
                 <div className="mx-auto text-center">
                     <div className="text-4xl font-bold">{props.name}</div>

@@ -105,7 +105,7 @@ const Kitten: React.FC<Props> = (props) => {
             ? props.litters.map((x) => ({ value: x.id, label: x.name }))
             : {};
     return (
-        <Layout>
+        <Layout pageTitle={'Les Petits Chatons - ' + props.kitten.name}>
             <ToastContainer />
             <div className="max-w-4xl p-8 m-auto mt-24">
                 <div className="shadow-lg card bg-base-100 text-accent">

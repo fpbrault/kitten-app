@@ -22,7 +22,7 @@ const Header: React.FC = () => {
     if (!session) {
         leftMenu = (
             <div className="flex-col lg:flex lg:flex-row">
-                <Link href="/">
+                <Link href="/blog">
                     <a className="btn btn-ghost btn-sm rounded-btn">Blog</a>
                 </Link>
                 <Link href="/kittens">
@@ -40,7 +40,7 @@ const Header: React.FC = () => {
         compactMenu = (
             <>
                 <li>
-                    <Link href="/">
+                    <Link href="/blog">
                         <a className="">Blog</a>
                     </Link>
                 </li>
@@ -62,7 +62,7 @@ const Header: React.FC = () => {
     if (session) {
         leftMenu = (
             <div className="flex">
-                <Link href="/">
+                <Link href="/blog">
                     <a className="btn btn-ghost btn-sm rounded-btn">Blog</a>
                 </Link>
                 <Link href="/kittens">
@@ -97,7 +97,7 @@ const Header: React.FC = () => {
         compactMenu = (
             <>
                 <li>
-                    <Link href="/">
+                    <Link href="/blog">
                         <a>Blog</a>
                     </Link>
                 </li>

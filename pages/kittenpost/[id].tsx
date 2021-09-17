@@ -30,7 +30,7 @@ const Kitten: React.FC<Props> = (props) => {
         return <div>Authenticating ...</div>;
     }
     return (
-        <Layout>
+        <Layout pageTitle={'Les Petits Chatons - ' + props.kitten.name}>
             <div className="z-20 flex justify-center w-full bg-white h-20vh">
                 <div className="flex my-auto">
                     <img

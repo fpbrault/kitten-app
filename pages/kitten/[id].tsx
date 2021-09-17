@@ -219,7 +219,7 @@ const Kitten: React.FC<Props> = (props) => {
     } */
 
     return (
-        <Layout>
+        <Layout pageTitle={'Les Petits Chatons - ' + props.kitten.name}>
             <div className="z-20 flex flex-col justify-center w-full pt-20 border-b-2 bg-base-300 text-neutral">
                 <div className="pb-4 mx-auto text-6xl font-light">{props.kitten.name}</div>
 

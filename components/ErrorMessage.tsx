@@ -3,7 +3,7 @@ import Link from 'next/link';
 import Layout from './Layout';
 
 const ErrorMessage: React.FC = () => (
-    <Layout>
+    <Layout pageTitle="Error">
         <div className="min-h-screen hero bg-base-200">
             <div className="text-center hero-content">
                 <div className="max-w-md">
