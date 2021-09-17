@@ -135,11 +135,13 @@ const Header: React.FC = () => {
     }
 
     return (
-        <nav className="fixed z-20 w-full shadow-lg navbar bg-primary text-neutral-content ">
+        <nav className="fixed z-20 w-full shadow-lg navbar bg-primary text-base-content">
             <div className="px-2 mx-2 navbar-start">
                 <div className="flex-1">
                     <Link href="/">
-                        <a className="text-sm font-bold sm:text-lg">Les Petits Chatons</a>
+                        <a className="text-sm font-bold sm:text-lg btn btn-ghost btn-sm rounded-btn">
+                            Les Petits Chatons
+                        </a>
                     </Link>
                 </div>
             </div>

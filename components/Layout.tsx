@@ -48,11 +48,11 @@ const Layout: React.FC<Props> = (props) => (
                 type="text/css"
             />
         </Head>
-        <div data-theme="cupcake" className="flex flex-col text-neutral bg-base-200">
+        <div data-theme="kittens" className="flex flex-col text-neutral bg-base-200">
             <Header />
             <div className="min-h-screen pt-0">{props.children}</div>
 
-            <footer className="flex flex-col items-center content-center justify-center p-10 text-center footer bg-primary text-primary-content footer-center">
+            <footer className="flex flex-col items-center content-center justify-center p-10 text-center footer bg-primary text-neutral footer-center">
                 <div>
                     <Link href="/">
                         <a>

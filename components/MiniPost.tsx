@@ -27,7 +27,7 @@ const MiniPost: React.FC<{ post: PostProps }> = ({ post }) => {
     let day = new Date(post.createdAt).toDateString();
     return (
         <div>
-            <div className="flex flex-col items-center max-w-xs mx-auto mb-4 text-center shadow-2xl card bg-base-100">
+            <div className="flex flex-col items-center max-w-lg mx-auto mb-4 text-center shadow-2xl lg:max-w-xs card bg-base-100">
                 {post?.image ? (
                     <Link href={'/post/' + post.id}>
                         <a>
@@ -41,7 +41,7 @@ const MiniPost: React.FC<{ post: PostProps }> = ({ post }) => {
                 ) : null}
                 <div className="card-body">
                     <Link href={'/post/' + post.id}>
-                        <a className="mb-2 text-4xl font-bold hover:text-blue-500">{post.title}</a>
+                        <a className="mb-2 text-4xl font-bold hover:text-secondary">{post.title}</a>
                     </Link>
                     <div className="mb-2 text-lg font-thin">
                         By {authorName || 'Unknown author'}
@@ -53,7 +53,7 @@ const MiniPost: React.FC<{ post: PostProps }> = ({ post }) => {
                         <ReactMarkdown>{post.content.slice(0, 100) + ' ...'}</ReactMarkdown>
                     </p>
                     <Link href={'/post/' + post.id}>
-                        <a className="px-4 mx-auto mt-4 text-center text-gray-500 transition-colors bg-transparent border border-gray-400 rounded cursor-pointer h-7 focus:outline-none hover:border-transparent hover:bg-blue-500 hover:text-white">
+                        <a className="px-4 mx-auto mt-4 text-center text-gray-500 transition-colors bg-transparent border border-gray-400 rounded cursor-pointer h-7 focus:outline-none hover:border-transparent hover:bg-secondary hover:text-white">
                             READ MORE
                         </a>
                     </Link>

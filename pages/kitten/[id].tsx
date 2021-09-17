@@ -220,11 +220,11 @@ const Kitten: React.FC<Props> = (props) => {
 
     return (
         <Layout pageTitle={'Les Petits Chatons - ' + props.kitten.name}>
-            <div className="z-20 flex flex-col justify-center w-full pt-20 border-b-2 bg-base-300 text-neutral">
-                <div className="pb-4 mx-auto text-6xl font-light">{props.kitten.name}</div>
+            <div className="z-20 flex flex-col justify-center w-full pt-20 bg-neutral text-neutral-content">
+                <div className="pb-2 mx-auto text-6xl font-light">{props.kitten.name}</div>
 
                 <Link href={'/litter/' + props.kitten.litter?.id}>
-                    <div className="font-bold text-center hover:text-blue-600">
+                    <div className="pb-2 font-bold text-center hover:text-secondary">
                         {props?.kitten.litter?.name || 'Unknown litter'}
                     </div>
                 </Link>
@@ -240,12 +240,12 @@ const Kitten: React.FC<Props> = (props) => {
                 {userHasValidSession ? (
                     <div className="flex flex-row items-center justify-center my-2 ">
                         <Link href={'/create'}>
-                            <a className="px-3 mx-2 font-semibold text-center text-white transition-colors bg-transparent border border-transparent rounded outline-none cursor-pointer bg-charcoal h-7 hover:bg-cadet-blue">
+                            <a className="px-3 mx-2 font-semibold text-center transition-colors bg-transparent border border-transparent rounded outline-none cursor-pointer text-neutral bg-base-100 h-7 hover:bg-primary">
                                 Add post
                             </a>
                         </Link>
                         <Link href={'/kitten/edit/' + props.kitten.id}>
-                            <a className="px-3 font-semibold text-center transition-colors bg-transparent border rounded cursor-pointer text-charcoal border-charcoal h-7 focus:outline-none hover:border-transparent hover:bg-white hover:text-charcoal">
+                            <a className="px-3 font-semibold text-center transition-colors bg-transparent border rounded cursor-pointer text-neutral-content border-neutral-content h-7 focus:outline-none hover:border-transparent hover:bg-secondary hover:text-neutral">
                                 Edit
                             </a>
                         </Link>
@@ -263,7 +263,7 @@ const Kitten: React.FC<Props> = (props) => {
             <pre>{JSON.stringify(highRange, null, '\t')}</pre> */}
             {/* <pre>{JSON.stringify(props.datapoints[0], null, '\t')}</pre> */}
 
-            <div className="flex justify-center pt-4 mx-2 bg-base-100">
+            <div className="flex justify-center pt-4 mx-2 bg-base-200">
                 <div className="flex flex-col flex-wrap w-full mx-auto">
                     <div className="w-full max-w-3xl mx-auto mb-4 text-center collapse rounded-box border-base-300 bg-base-content">
                         <input type="checkbox" />

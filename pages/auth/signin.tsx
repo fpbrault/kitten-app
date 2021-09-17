@@ -10,9 +10,9 @@ type Providers = {
 
 export default function SignIn({ providers }: Providers): ReactElement {
     return (
-        <div className="flex flex-col justify-center min-h-screen bg-charcoal sm:py-12">
+        <div className="flex flex-col justify-center min-h-screen bg-secondary sm:py-12">
             <div className="p-10 mx-auto xs:p-0 md:w-full md:max-w-md">
-                <h1 className="mb-5 text-4xl font-bold text-center text-white">
+                <h1 className="mb-5 text-4xl font-bold text-center text-neutral">
                     Les Petits Chatons
                 </h1>
 
@@ -22,7 +22,7 @@ export default function SignIn({ providers }: Providers): ReactElement {
                             <div key={provider.name}>
                                 <button
                                     type="button"
-                                    className="transition duration-200 bg-gainsboro hover:bg-pastel-pink focus:bg-pastel-pink text-black w-full py-2.5 rounded-lg text-sm shadow-sm hover:shadow-md font-semibold text-center inline-block"
+                                    className="transition duration-200 bg-gainsboro hover:bg-neutral hover:text-neutral-content focus:bg-neutral-content text-black w-full py-2.5 rounded-lg text-sm shadow-sm hover:shadow-md font-semibold text-center inline-block"
                                     onClick={() => signIn(provider.id)}>
                                     Sign in with {provider.name}
                                 </button>

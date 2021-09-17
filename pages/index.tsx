@@ -36,7 +36,7 @@ const Blog: React.FC<Props> = (props) => {
     return (
         <Layout pageTitle="Les Petits Chatons">
             <div className="min-h-screen hero bg-base-200">
-                <div className="flex-col hero-content lg:flex-row-reverse">
+                <div className="flex flex-col items-center pb-32 text-center lg:pb-0 hero-content lg:flex-row-reverse lg:text-left">
                     {/*                     <img
                         src="https://i.imgur.com/VKnq1Ak.png"
                         alt="hero-image"
@@ -44,7 +44,7 @@ const Blog: React.FC<Props> = (props) => {
                     /> */}
                     <div className="pt-24 mx-4 bg-base-200">
                         <div className="post indicator">
-                            <div className="indicator-item indicator-center badge badge-primary">
+                            <div className="indicator-item indicator-center badge badge-secondary">
                                 Nouveau!
                             </div>
                             <MiniPost post={props.feed} />
@@ -62,10 +62,10 @@ const Blog: React.FC<Props> = (props) => {
                             <button className="mr-2 btn btn-primary">A propos</button>
                         </Link> */}
                         <Link href="/blog">
-                            <button className="mr-2 btn btn-primary">Blog</button>
+                            <button className="mr-2 btn btn-secondary">Blog</button>
                         </Link>
                         <Link href="/kittens">
-                            <button className="mr-2 btn btn-primary">Nos Chatons</button>
+                            <button className="mr-2 btn btn-secondary">Nos Chatons</button>
                         </Link>
                     </div>
                 </div>
