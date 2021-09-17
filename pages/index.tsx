@@ -1,11 +1,12 @@
 import React from 'react';
 import Layout from '../components/Layout';
+import Link from 'next/link';
 import { GetServerSideProps } from 'next';
-import Post, { PostProps } from '../components/Post';
+import MiniPost, { PostProps } from '../components/MiniPost';
 import prisma from '../lib/prisma';
 
 export const getServerSideProps: GetServerSideProps = async () => {
-    const feed = await prisma.post.findMany({
+    const feed = await prisma.post.findFirst({
         where: {
             published: true
         },
@@ -28,43 +29,46 @@ export const getServerSideProps: GetServerSideProps = async () => {
 };
 
 type Props = {
-    feed: PostProps[];
+    feed: PostProps;
 };
 
 const Blog: React.FC<Props> = (props) => {
     return (
-        <Layout>
-            {/*  <header
-                id="up"
-                className="relative h-screen bg-fixed bg-center bg-gradient-to-br from-indigo-400 to-green-300">
-                <div className="flex items-center justify-center h-screen bg-black bg-opacity-50">
-                    <div className="mx-2 text-center">
-                        <h1 className="text-4xl font-extrabold text-gray-100 xs:text-5xl md:text-6xl">
-                            <span className="text-white">Orphan</span> Kitten Rescue
-                        </h1>
-                        <div className="inline-flex">
-                            <Link href="/blog">
-                                <button className="p-2 mx-2 my-5 font-bold text-white transition duration-500 bg-indigo-700 border-2 border-transparent rounded shadow-md hover:bg-indigo-800 hover:border-indigo-800 md:text-xl">
-                                    Blog
-                                </button>
-                            </Link>
-                            <Link href="/kittens">
-                                <a>
-                                    <button className="p-2 mx-2 my-5 font-bold text-indigo-800 transition duration-500 bg-transparent bg-indigo-200 bg-opacity-75 border-2 border-indigo-700 rounded shadow-md hover:bg-opacity-100 hover:border-indigo-800 md:text-lg">
-                                        Kittens
-                                    </button>
-                                </a>
-                            </Link>
+        <Layout pageTitle="Les Petits Chatons">
+            <div className="min-h-screen hero bg-base-200">
+                <div className="flex-col hero-content lg:flex-row-reverse">
+                    {/*                     <img
+                        src="https://i.imgur.com/VKnq1Ak.png"
+                        alt="hero-image"
+                        className="max-w-xs rounded-lg shadow-2xl md:max-w-md"
+                    /> */}
+                    <div className="pt-24 mx-4 bg-base-200">
+                        <div className="post indicator">
+                            <div className="indicator-item indicator-center badge badge-primary">
+                                Nouveau!
+                            </div>
+                            <MiniPost post={props.feed} />
                         </div>
                     </div>
-                </div>
-            </header> */}
-            <div className="pt-24 mx-4 bg-base-200">
-                {props.feed.map((post) => (
-                    <div key={post.id} className="post">
-                        <Post post={post} />
+                    <div className="max-w-lg">
+                        <h1 className="mb-5 text-5xl font-bold">Les Petits Chatons</h1>
+                        <p className="mb-5">
+                            Les Petits Chatons est un couple dédié à rendre le monde meilleur pour
+                            les plus petits chatons! Notre mission est de donner à chaque chaton une
+                            chance de s'épanouir et d'avoir une vie bien remplie!
+                        </p>
+                        {/* 
+                        <Link href="/about">
+                            <button className="mr-2 btn btn-primary">A propos</button>
+                        </Link> */}
+                        <Link href="/blog">
+                            <button className="mr-2 btn btn-primary">Blog</button>
+                        </Link>
+                        <Link href="/kittens">
+                            <button className="mr-2 btn btn-primary">Nos Chatons</button>
+                        </Link>
                     </div>
-                ))}
+                </div>
             </div>
         </Layout>
     );

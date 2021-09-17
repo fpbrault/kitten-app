@@ -17,6 +17,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import { DateTimePicker } from '@material-ui/pickers';
+import ErrorMessage from '../components/ErrorMessage';
 
 const fetcher = (url) => fetch(url).then((res) => res.json());
 
@@ -45,13 +46,7 @@ const Draft: React.FC<Props> = () => {
     const [session] = useSession();
 
     if (!session) {
-        return (
-            <Layout>
-                <div className="max-w-4xl p-8 m-auto mt-24">
-                    <div>You need to be authenticated to view this page.</div>
-                </div>
-            </Layout>
-        );
+        return <ErrorMessage></ErrorMessage>;
     }
     const typeOptions = [
         { value: 'data', label: 'Data Point' },
@@ -191,7 +186,7 @@ const Draft: React.FC<Props> = () => {
             : {};
 
     return (
-        <Layout>
+        <Layout pageTitle="Les Petits Chatons - Ajouter Données">
             <ToastContainer />
             <div className="max-w-4xl p-8 m-auto mt-24">
                 <div className="shadow-lg card bg-base-100 text-accent">
@@ -248,7 +243,7 @@ const Draft: React.FC<Props> = () => {
                                     <div className="py-4">
                                         <div className="font-light ">Time</div>
                                         <DateTimePicker
-                                            className="bg-base-100"
+                                            className="bg-white"
                                             autoOk
                                             inputVariant="outlined"
                                             value={selectedTime}
@@ -263,7 +258,7 @@ const Draft: React.FC<Props> = () => {
                                 <>
                                     <div className="font-light pt ">Kitten Name</div>
                                     <input
-                                        className="w-full my-2 input-sm input input-bordered"
+                                        className="w-full my-2 bg-white input-sm input input-bordered"
                                         onChange={(e) => setKittenName(e.target.value)}
                                         placeholder="Enter a name"
                                         type="text"
@@ -272,7 +267,7 @@ const Draft: React.FC<Props> = () => {
                                     />
                                     <div className="font-light ">Description</div>
                                     <input
-                                        className="w-full my-2 input-sm input input-bordered"
+                                        className="w-full my-2 bg-white input-sm input input-bordered"
                                         onChange={(e) => setKittenDescription(e.target.value)}
                                         placeholder="Enter a description"
                                         type="text"
@@ -291,7 +286,7 @@ const Draft: React.FC<Props> = () => {
                                     <div className="py-4">
                                         <div className="font-light ">Birthdate</div>
                                         <DateTimePicker
-                                            className="bg-base-100"
+                                            className="bg-white"
                                             autoOk
                                             inputVariant="outlined"
                                             value={kittenBirthday}
@@ -300,7 +295,7 @@ const Draft: React.FC<Props> = () => {
                                         />
                                     </div>
                                     <input
-                                        className="w-full my-2 input-sm input input-bordered"
+                                        className="w-full my-2 bg-white input-sm input input-bordered"
                                         onChange={(e) => setImage(e.target.value)}
                                         placeholder="Image"
                                         type="text"
@@ -326,7 +321,7 @@ const Draft: React.FC<Props> = () => {
                                 <>
                                     <div className="font-light pt ">Litter Name</div>
                                     <input
-                                        className="w-full my-2 input-sm input input-bordered"
+                                        className="w-full my-2 bg-white input-sm input input-bordered"
                                         onChange={(e) => setLitterName(e.target.value)}
                                         placeholder="Enter a name"
                                         type="text"
@@ -335,7 +330,7 @@ const Draft: React.FC<Props> = () => {
                                     />
                                     <div className="font-light ">Description</div>
                                     <input
-                                        className="w-full my-2 input-sm input input-bordered"
+                                        className="w-full my-2 bg-white input-sm input input-bordered"
                                         onChange={(e) => setLitterDescription(e.target.value)}
                                         placeholder="Enter a description"
                                         type="text"

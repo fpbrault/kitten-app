@@ -12,7 +12,8 @@ export const getServerSideProps: GetServerSideProps = async () => {
                     name: true
                 }
             }
-        }
+        },
+        orderBy: { id: 'desc' }
     });
     return {
         props: { feed }
@@ -25,7 +26,7 @@ type Props = {
 
 const Kittens: React.FC<Props> = (props) => {
     return (
-        <Layout>
+        <Layout pageTitle="Les Petits Chatons - Nos Chatons">
             <div className="grid max-w-4xl grid-cols-1 gap-2 pt-32 mx-auto md:grid-cols-2 ">
                 {props.feed.map((kitten) => (
                     <div key={kitten.id} className="mb-4">

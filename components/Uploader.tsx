@@ -97,7 +97,7 @@ const ImageUpload: React.FC<ChildProps> = ({ changeImageUrl }) => {
             <Dashboard
                 uppy={uppy}
                 width={1000}
-                height={300}
+                height={500}
                 theme={'light'}
                 plugins={['ImageEditor', 'Webcam']}
             />

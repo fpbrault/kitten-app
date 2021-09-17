@@ -221,7 +221,7 @@ const Kitten: React.FC<Props> = (props) => {
     return (
         <Layout>
             <div className="z-20 flex flex-col justify-center w-full pt-20 border-b-2 bg-base-300 text-neutral">
-                <div className="mx-auto text-6xl font-light ">{props.kitten.name}</div>
+                <div className="pb-4 mx-auto text-6xl font-light">{props.kitten.name}</div>
 
                 <Link href={'/litter/' + props.kitten.litter?.id}>
                     <div className="font-bold text-center hover:text-blue-600">
@@ -244,7 +244,7 @@ const Kitten: React.FC<Props> = (props) => {
                                 Add post
                             </a>
                         </Link>
-                        <Link href={'/data'}>
+                        <Link href={'/kitten/edit/' + props.kitten.id}>
                             <a className="px-3 font-semibold text-center transition-colors bg-transparent border rounded cursor-pointer text-charcoal border-charcoal h-7 focus:outline-none hover:border-transparent hover:bg-white hover:text-charcoal">
                                 Edit
                             </a>

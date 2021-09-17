@@ -26,14 +26,14 @@ const Header: React.FC = () => {
                     <a className="btn btn-ghost btn-sm rounded-btn">Blog</a>
                 </Link>
                 <Link href="/kittens">
-                    <a className="btn btn-ghost btn-sm rounded-btn">Kittens</a>
+                    <a className="btn btn-ghost btn-sm rounded-btn">Nos Chatons</a>
                 </Link>
             </div>
         );
         rightMenu = (
             <div className="flex">
                 <Link href="/api/auth/signin">
-                    <a className="btn btn-ghost btn-sm rounded-btn">Log in</a>
+                    <a className="btn btn-ghost btn-sm rounded-btn">Connexion</a>
                 </Link>
             </div>
         );
@@ -46,13 +46,13 @@ const Header: React.FC = () => {
                 </li>
                 <li>
                     <Link href="/kittens">
-                        <a className="">Kittens</a>
+                        <a className="">Nos Chatons</a>
                     </Link>
                 </li>
 
                 <li>
                     <Link href="/api/auth/signin">
-                        <a className="">Log in</a>
+                        <a className="">Connexion</a>
                     </Link>
                 </li>
             </>
@@ -66,10 +66,10 @@ const Header: React.FC = () => {
                     <a className="btn btn-ghost btn-sm rounded-btn">Blog</a>
                 </Link>
                 <Link href="/kittens">
-                    <a className="btn btn-ghost btn-sm rounded-btn">Kittens</a>
+                    <a className="btn btn-ghost btn-sm rounded-btn">Nos Chatons</a>
                 </Link>
                 <Link href="/drafts">
-                    <a className="btn btn-ghost btn-sm rounded-btn">My drafts</a>
+                    <a className="btn btn-ghost btn-sm rounded-btn">Drafts</a>
                 </Link>
             </div>
         );
@@ -79,10 +79,10 @@ const Header: React.FC = () => {
                     {/* {session.user.name} ({session.user.email}) */}
                 </div>
                 <Link href="/create">
-                    <a className="btn btn-ghost btn-sm rounded-btn">New Post</a>
+                    <a className="btn btn-ghost btn-sm rounded-btn">Ajouter Post</a>
                 </Link>
                 <Link href="/data">
-                    <a className="btn btn-ghost btn-sm rounded-btn">New Data Entry</a>
+                    <a className="btn btn-ghost btn-sm rounded-btn">Ajouter Données</a>
                 </Link>
                 <a
                     className="btn btn-ghost btn-sm rounded-btn"
@@ -90,7 +90,7 @@ const Header: React.FC = () => {
                     tabIndex={0}
                     onClick={() => signOut()}
                     onKeyPress={() => signOut()}>
-                    <div className="">Log out</div>
+                    <div className="">Déconnexion</div>
                 </a>
             </div>
         );
@@ -103,22 +103,22 @@ const Header: React.FC = () => {
                 </li>
                 <li>
                     <Link href="/kittens">
-                        <a>Kittens</a>
+                        <a>Nos Chatons</a>
                     </Link>
                 </li>
                 <li>
                     <Link href="/drafts">
-                        <a>My drafts</a>
+                        <a>Drafts</a>
                     </Link>
                 </li>
                 <li>
                     <Link href="/create">
-                        <a>New Post</a>
+                        <a>Ajouter Post</a>
                     </Link>
                 </li>
                 <li>
                     <Link href="/data">
-                        <a>New Data Entry</a>
+                        <a>Ajouter Données</a>
                     </Link>
                 </li>
                 <li>
@@ -127,7 +127,7 @@ const Header: React.FC = () => {
                         tabIndex={0}
                         onClick={() => signOut()}
                         onKeyPress={() => signOut()}>
-                        <div className="">Log out</div>
+                        <div className="">Déconnexion</div>
                     </a>
                 </li>
             </>

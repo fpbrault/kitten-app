@@ -22,12 +22,12 @@ export type PostProps = {
     } | null;
 };
 
-const Post: React.FC<{ post: PostProps }> = ({ post }) => {
+const MiniPost: React.FC<{ post: PostProps }> = ({ post }) => {
     const authorName = post.author ? post.author.name : 'Unknown author';
     let day = new Date(post.createdAt).toDateString();
     return (
         <div>
-            <div className="flex flex-col items-center max-w-3xl mx-auto mb-4 text-center shadow-2xl card bg-base-100">
+            <div className="flex flex-col items-center max-w-xs mx-auto mb-4 text-center shadow-2xl card bg-base-100">
                 {post?.image ? (
                     <Link href={'/post/' + post.id}>
                         <a>
@@ -63,4 +63,4 @@ const Post: React.FC<{ post: PostProps }> = ({ post }) => {
     );
 };
 
-export default Post;
+export default MiniPost;

@@ -2,3 +2,26 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer utilities {
+    @variants responsive {
+      /* Chrome, Safari and Opera */
+      .no-scrollbar::-webkit-scrollbar {
+        display: none !important;
+      }
+  
+      .no-scrollbar {
+        -ms-overflow-style: none !important;  /* IE and Edge */
+        scrollbar-width: none !important;  /* Firefox */
+      }
+    }
+  }
+
+body {
+    -ms-overflow-style: none !important;  /* IE and Edge */
+    scrollbar-width: none !important; 
+}
+
+body::-webkit-scrollbar {
+    display: none !important;
+}

@@ -11,6 +11,7 @@ import 'react-mde/lib/styles/css/react-mde-all.css';
 import { useSession } from 'next-auth/client';
 import ImageUpload from '../components/Uploader';
 import HeartsLoader from '../components/HeartsLoader';
+import ErrorMessage from '../components/ErrorMessage';
 
 export const getServerSideProps: GetServerSideProps = async () => {
     const kittens = await prisma.kitten.findMany({
@@ -32,14 +33,9 @@ const Draft: React.FC<Props> = (props) => {
     const [session] = useSession();
 
     if (!session) {
-        return (
-            <Layout>
-                <div className="max-w-4xl p-8 m-auto mt-24">
-                    <div>You need to be authenticated to view this page.</div>
-                </div>
-            </Layout>
-        );
+        return <ErrorMessage></ErrorMessage>;
     }
+
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
     const [type, setType] = useState('');
@@ -83,7 +79,7 @@ const Draft: React.FC<Props> = (props) => {
 
     const kittenOptions = props.kittens.map((x) => ({ value: x.id, label: x.name }));
     return (
-        <Layout>
+        <Layout pageTitle="Les Petits Chatons - Ajouter Post">
             <div className="max-w-4xl p-8 m-auto mt-24">
                 <div className="shadow-lg card bg-base-100 text-accent">
                     <div className="card-body">
@@ -92,7 +88,7 @@ const Draft: React.FC<Props> = (props) => {
                                 New Draft
                             </div>
                             <input
-                                className="w-full my-2 input-sm input input-bordered"
+                                className="w-full my-2 bg-white input-sm input input-bordered"
                                 onChange={(e) => setTitle(e.target.value)}
                                 placeholder="Title"
                                 type="text"
@@ -118,7 +114,7 @@ const Draft: React.FC<Props> = (props) => {
                             ) : null}
 
                             <input
-                                className="w-full my-2 input-sm input input-bordered"
+                                className="w-full my-2 bg-white input-sm input input-bordered"
                                 onChange={(e) => setImage(e.target.value)}
                                 placeholder="Image"
                                 type="text"
