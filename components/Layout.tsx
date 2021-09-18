@@ -38,6 +38,11 @@ const Layout: React.FC<Props> = (props) => (
             <link rel="manifest" href="/manifest.json" />
             <link href="/favicon-16x16.png" rel="icon" type="image/png" sizes="16x16" />
             <link href="/favicon-32x32.png" rel="icon" type="image/png" sizes="32x32" />
+            <link rel="preconnect" href="https://fonts.googleapis.com" />
+            <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true" />
+            <link
+                href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;700&display=swap"
+                rel="stylesheet"></link>
             <link rel="shortcut icon" href="/favicon.ico" />
             <link rel="apple-touch-icon" href="/apple-icon.png"></link>
             <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />

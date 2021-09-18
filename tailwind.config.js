@@ -1,3 +1,5 @@
+const defaultTheme = require('tailwindcss/defaultTheme');
+
 module.exports = {
     purge: ['./pages/**/*.{js,ts,jsx,tsx}', './components/**/*.{js,ts,jsx,tsx}'],
     darkMode: false, // or 'media' or 'class'
@@ -19,6 +21,11 @@ module.exports = {
                 'light-steel-blue': '#A9BCD0',
                 gainsboro: '#D8DBE2'
             }
+        },
+        fontFamily: {
+            sans: ['comfortaa', ...defaultTheme.fontFamily.sans],
+            serif: [...defaultTheme.fontFamily.serif],
+            mono: [...defaultTheme.fontFamily.mono]
         }
     },
     variants: {

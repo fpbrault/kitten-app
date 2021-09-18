@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/no-noninteractive-tabindex */
 import React from 'react';
 import Link from 'next/link';
 import { signOut, useSession } from 'next-auth/client';
@@ -22,6 +23,9 @@ const Header: React.FC = () => {
     if (!session) {
         leftMenu = (
             <div className="flex-col lg:flex lg:flex-row">
+                <Link href="/about">
+                    <a className="btn btn-ghost btn-sm rounded-btn">A Propos</a>
+                </Link>
                 <Link href="/blog">
                     <a className="btn btn-ghost btn-sm rounded-btn">Blog</a>
                 </Link>
@@ -39,6 +43,11 @@ const Header: React.FC = () => {
         );
         compactMenu = (
             <>
+                <li>
+                    <Link href="/about">
+                        <a>A Propos</a>
+                    </Link>
+                </li>
                 <li>
                     <Link href="/blog">
                         <a className="">Blog</a>
@@ -62,6 +71,9 @@ const Header: React.FC = () => {
     if (session) {
         leftMenu = (
             <div className="flex">
+                <Link href="/about">
+                    <a className="btn btn-ghost btn-sm rounded-btn">A Propos</a>
+                </Link>
                 <Link href="/blog">
                     <a className="btn btn-ghost btn-sm rounded-btn">Blog</a>
                 </Link>
@@ -69,21 +81,43 @@ const Header: React.FC = () => {
                     <a className="btn btn-ghost btn-sm rounded-btn">Nos Chatons</a>
                 </Link>
                 <Link href="/drafts">
-                    <a className="btn btn-ghost btn-sm rounded-btn">Drafts</a>
+                    <a className="btn btn-ghost btn-sm rounded-btn">Brouillons</a>
                 </Link>
             </div>
         );
         rightMenu = (
             <div className="flex flex-col items-end text-right lg:flex-row lg:text-left">
-                <div className="btn btn-ghost btn-sm rounded-btn">
-                    {/* {session.user.name} ({session.user.email}) */}
+                <div className="dropdown dropdown-end">
+                    <div tabIndex={0} className="btn btn-sm btn-ghost rounded-btn">
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            className="w-5 h-5"
+                            viewBox="0 0 20 20"
+                            fill="currentColor">
+                            <path
+                                fillRule="evenodd"
+                                d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"
+                                clipRule="evenodd"
+                            />
+                        </svg>
+                    </div>
+                    <ul
+                        tabIndex={0}
+                        className="p-2 shadow menu dropdown-content bg-base-100 rounded-box w-52">
+                        <li>
+                            <Link href="/create">
+                                <a className="">Nouveau Post</a>
+                            </Link>
+                        </li>
+                        <li>
+                            <Link href="/data">
+                                <a className="">Nouvelles Données</a>
+                            </Link>
+                        </li>
+                    </ul>
                 </div>
-                <Link href="/create">
-                    <a className="btn btn-ghost btn-sm rounded-btn">Ajouter Post</a>
-                </Link>
-                <Link href="/data">
-                    <a className="btn btn-ghost btn-sm rounded-btn">Ajouter Données</a>
-                </Link>
+
+                {/*  <div className="my-auto text-xs align-bottom">{session.user.name}</div> */}
                 <a
                     className="btn btn-ghost btn-sm rounded-btn"
                     role="link"
@@ -97,6 +131,11 @@ const Header: React.FC = () => {
         compactMenu = (
             <>
                 <li>
+                    <Link href="/about">
+                        <a>A Propos</a>
+                    </Link>
+                </li>
+                <li>
                     <Link href="/blog">
                         <a>Blog</a>
                     </Link>
@@ -108,7 +147,7 @@ const Header: React.FC = () => {
                 </li>
                 <li>
                     <Link href="/drafts">
-                        <a>Drafts</a>
+                        <a>Brouillons</a>
                     </Link>
                 </li>
                 <li>

@@ -11,7 +11,6 @@ import 'react-mde/lib/styles/css/react-mde-all.css';
 import { useSession } from 'next-auth/client';
 import ImageUpload from '../components/Uploader';
 import HeartsLoader from '../components/HeartsLoader';
-import ErrorMessage from '../components/ErrorMessage';
 
 export const getServerSideProps: GetServerSideProps = async () => {
     const kittens = await prisma.kitten.findMany({
@@ -27,14 +26,11 @@ export const getServerSideProps: GetServerSideProps = async () => {
 
 type Props = {
     kittens: KittenProps[];
+    auth: boolean;
 };
 
-const Draft: React.FC<Props> = (props) => {
+const Draft = (props: Props) => {
     const [session] = useSession();
-
-    if (!session) {
-        return <ErrorMessage></ErrorMessage>;
-    }
 
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
@@ -174,5 +170,7 @@ const Draft: React.FC<Props> = (props) => {
         </Layout>
     );
 };
+
+Draft.auth = true;
 
 export default Draft;

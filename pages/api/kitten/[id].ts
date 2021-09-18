@@ -14,17 +14,51 @@ export default async function handle(req: NextApiRequest, res: NextApiResponse):
 
     const { kittenName, kittenDescription, kittenLitter, image, kittenBirthday } = req.body;
 
+    console.log(req.query);
+
     if (req.method === 'GET') {
-        const kitten = await prisma.kitten.findUnique({
-            where: { id: Number(kittenId) }
-        });
-        const litters = await prisma.litter.findMany({
-            select: {
-                name: true,
-                id: true
-            }
-        });
-        res.json({ litters: litters, kitten: kitten });
+        if (req.query.withDatapoints === 'true') {
+            const kitten = await prisma.kitten.findUnique({
+                where: {
+                    id: Number(kittenId) || -1
+                },
+                include: {
+                    litter: {
+                        select: { name: true, id: true }
+                    },
+                    posts: {
+                        where: { published: true },
+                        orderBy: [
+                            {
+                                createdAt: 'desc'
+                            }
+                        ]
+                    },
+                    datapoints: {}
+                }
+            });
+
+            const datapoints = await prisma.$queryRaw(
+                'select date_trunc(\'day\', "time" AT TIME ZONE \'EST\') as "time" , count(id), \
+            round(avg("startWeight")) as "pre", round(avg("finalWeight")) as "post",\
+            round(avg("finalWeight") - avg("startWeight")) as "delta", max("finalWeight" - "startWeight") as "delta" \
+            from public."KittenDataPoint" WHERE "kittenId" =' +
+                    Number(kittenId) +
+                    ' group by 1, "kittenId" order by "kittenId", "time" asc'
+            );
+            res.json({ kitten: kitten, datapoints });
+        } else {
+            const kitten = await prisma.kitten.findUnique({
+                where: { id: Number(kittenId) }
+            });
+            const litters = await prisma.litter.findMany({
+                select: {
+                    name: true,
+                    id: true
+                }
+            });
+            res.json({ litters: litters, kitten: kitten });
+        }
     } else if (req.method === 'PUT') {
         if (session) {
             const result = await prisma.kitten.update({
