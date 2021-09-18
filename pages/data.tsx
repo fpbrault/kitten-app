@@ -45,9 +45,6 @@ const Draft: React.FC<Props> = () => {
 
     const [session] = useSession();
 
-    if (!session) {
-        return <ErrorMessage></ErrorMessage>;
-    }
     const typeOptions = [
         { value: 'data', label: 'Data Point' },
         { value: 'litter', label: 'Litter' },
@@ -184,6 +181,10 @@ const Draft: React.FC<Props> = () => {
         typeof data != 'undefined' && typeof data.litters != 'undefined'
             ? data.litters.map((x) => ({ value: x.id, label: x.name }))
             : {};
+
+    if (!session) {
+        return <ErrorMessage></ErrorMessage>;
+    }
 
     return (
         <Layout pageTitle="Les Petits Chatons - Ajouter Données">
@@ -359,7 +360,9 @@ const Draft: React.FC<Props> = () => {
                                 </div>
                             )}
                         </form>
-                        {selectedKitten && type['value'] == 'data' ? (
+                        {selectedKitten &&
+                        type['value'] == 'data' &&
+                        typeof data.kittens != 'undefined' ? (
                             <div className="pt-4">
                                 <KittenDataTable
                                     kittenData={

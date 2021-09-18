@@ -29,7 +29,7 @@ export default async function handle(req: NextApiRequest, res: NextApiResponse):
         });
         res.json({ litters: litters, kittens: kittens });
     } else if (req.method === 'POST') {
-        if (!session) {
+        if (session) {
             const result = await prisma.kittenDataPoint.create({
                 data: {
                     startWeight: startWeight,

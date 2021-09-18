@@ -31,7 +31,7 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
         }
     });
     const datapoints = await prisma.$queryRaw(
-        'select date_trunc(\'day\', "time") as "time", count(id), \
+        'select date_trunc(\'day\', "time" AT TIME ZONE \'EST\') as "time" , count(id), \
     round(avg("startWeight")) as "pre", round(avg("finalWeight")) as "post",\
     round(avg("finalWeight") - avg("startWeight")) as "delta", max("finalWeight" - "startWeight") as "delta" \
     from public."KittenDataPoint" WHERE "kittenId" =' +
@@ -128,7 +128,7 @@ const Kitten: React.FC<Props> = (props) => {
                 enabledOnSeries: [0, 1]
             },
             markers: {
-                size: 3
+                size: 5
             }
         },
         series: [
@@ -212,11 +212,6 @@ const Kitten: React.FC<Props> = (props) => {
             }
         ]
     };
-    /*     function addDays(date, days) {
-        const copy = new Date(Number(date));
-        copy.setDate(date.getDate() + days);
-        return copy;
-    } */
 
     return (
         <Layout pageTitle={'Les Petits Chatons - ' + props.kitten.name}>
@@ -259,10 +254,6 @@ const Kitten: React.FC<Props> = (props) => {
                     <div className="text-base">{props?.kitten.content}</div>
                 </div>
             </div>
-            {/*             <pre>{JSON.stringify(lowRange, null, '\t')}</pre>
-            <pre>{JSON.stringify(highRange, null, '\t')}</pre> */}
-            {/* <pre>{JSON.stringify(props.datapoints[0], null, '\t')}</pre> */}
-
             <div className="flex justify-center pt-4 mx-2 bg-base-200">
                 <div className="flex flex-col flex-wrap w-full mx-auto">
                     <div className="w-full max-w-3xl mx-auto mb-4 text-center collapse rounded-box border-base-300 bg-base-content">
