@@ -8,7 +8,7 @@ import Link from 'next/link';
 import path from 'path';
 //import CustomLink from '../components/CustomLink';
 import Layout from '../components/Layout';
-import { postFilePaths, POSTS_PATH } from '../lib/mdxUtils';
+import { pageFilePaths, PAGES_PATH } from '../lib/mdxUtils';
 
 // Custom components/renderers to pass to MDX.
 // Since the MDX files aren't loaded by webpack, they have no knowledge of how
@@ -25,35 +25,43 @@ const components = {
 
 export default function PostPage({ source, frontMatter }) {
     return (
-        <Layout pageTitle={'Les Petits Chatons - ' + frontMatter.title}>
-            <div className="min-h-screen hero bg-base-200">
-                <div className="flex flex-col items-center py-16 mt-16 text-center lg:pb-16 hero-content lg:flex-row-reverse lg:text-left">
-                    {/*                     <img
+        <>
+            <Layout
+                pageTitle={'Les Petits Chatons - ' + frontMatter.title}
+                fullpage={frontMatter.fullpage}>
+                <div
+                    className={
+                        'min-h-screen hero ' +
+                        (!frontMatter.fullpage ? 'bg-base-200' : 'bg-primary')
+                    }>
+                    <div className="flex flex-col items-center py-16 mt-16 text-center lg:pb-16 hero-content lg:flex-row-reverse lg:text-left">
+                        {/*                     <img
                         src="https://i.imgur.com/VKnq1Ak.png"
                         alt="hero-image"
                         className="max-w-xs rounded-lg shadow-2xl md:max-w-md"
                     /> */}
 
-                    <div className="max-w-lg">
-                        {/* <h1 className="mb-5 text-5xl font-bold text-center">{frontMatter.title}</h1> */}
-                        {frontMatter.description ? (
-                            <p className="description">{frontMatter.description}</p>
-                        ) : null}
-                        <p className="mb-5">
-                            <div className="prose-sm prose text-center sm:prose lg:prose-lg">
-                                <MDXRemote {...source} components={components} />
-                            </div>
-                        </p>
+                        <div className="max-w-lg">
+                            {/* <h1 className="mb-5 text-5xl font-bold text-center">{frontMatter.title}</h1> */}
+                            {frontMatter.description ? (
+                                <p className="description">{frontMatter.description}</p>
+                            ) : null}
+                            <p className="mb-5">
+                                <div className="prose-sm prose text-center sm:prose lg:prose-lg">
+                                    <MDXRemote {...source} components={components} />
+                                </div>
+                            </p>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </Layout>
+            </Layout>
+        </>
     );
 }
 
 export const getStaticProps = async ({ params }) => {
-    const postFilePath = path.join(POSTS_PATH, `${params.slug}.mdx`);
-    const source = fs.readFileSync(postFilePath);
+    const pageFilePaths = path.join(PAGES_PATH, `${params.slug}.mdx`);
+    const source = fs.readFileSync(pageFilePaths);
 
     const { content, data } = matter(source);
 
@@ -75,7 +83,7 @@ export const getStaticProps = async ({ params }) => {
 };
 
 export const getStaticPaths = async () => {
-    const paths = postFilePaths
+    const paths = pageFilePaths
         // Remove file extensions for page paths
         .map((path) => path.replace(/\.mdx?$/, ''))
         // Map the path into the static paths object required by Next.js

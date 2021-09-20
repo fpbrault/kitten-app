@@ -57,10 +57,9 @@ const Blog: React.FC<Props> = (props) => {
                             les plus petits chatons! Notre mission est de donner à chaque chaton une
                             chance de s'épanouir et d'avoir une vie bien remplie!
                         </p>
-                        {/* 
                         <Link href="/about">
-                            <button className="mr-2 btn btn-primary">A propos</button>
-                        </Link> */}
+                            <button className="mr-2 btn btn-secondary">A propos</button>
+                        </Link>
                         <Link href="/blog">
                             <button className="mr-2 btn btn-secondary">Blog</button>
                         </Link>

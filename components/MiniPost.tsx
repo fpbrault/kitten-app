@@ -1,6 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
-import ReactMarkdown from 'react-markdown';
+import removeMd from 'remove-markdown';
 
 export type PostProps = {
     id: number;
@@ -27,7 +27,7 @@ const MiniPost: React.FC<{ post: PostProps }> = ({ post }) => {
     let day = new Date(post.createdAt).toDateString();
     return (
         <div>
-            <div className="flex flex-col items-center max-w-lg mx-auto mb-4 text-center shadow-2xl lg:max-w-xs card bg-base-100">
+            <div className="flex flex-col items-center max-w-lg mx-auto mb-4 text-center shadow-2xl lg:max-w-sm card bg-base-100">
                 {post?.image ? (
                     <Link href={'/post/' + post.id}>
                         <a>
@@ -50,11 +50,11 @@ const MiniPost: React.FC<{ post: PostProps }> = ({ post }) => {
                         {day}
                     </span>
                     <p className="text-base text-grey-darker">
-                        <ReactMarkdown>{post.content.slice(0, 100) + ' ...'}</ReactMarkdown>
+                        {removeMd(post.content).slice(0, 100) + ' ...'}
                     </p>
                     <Link href={'/post/' + post.id}>
                         <a className="px-4 mx-auto mt-4 text-center text-gray-500 transition-colors bg-transparent border border-gray-400 rounded cursor-pointer h-7 focus:outline-none hover:border-transparent hover:bg-secondary hover:text-white">
-                            READ MORE
+                            Lire la suite →
                         </a>
                     </Link>
                 </div>

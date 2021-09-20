@@ -20,7 +20,17 @@ module.exports = {
                 'pastel-pink': '#DAA49A',
                 'light-steel-blue': '#A9BCD0',
                 gainsboro: '#D8DBE2'
-            }
+            },
+            typography: (theme) => ({
+                DEFAULT: {
+                    css: {
+                        hr: {
+                            borderColor: theme('colors.secondary'),
+                            borderTopWidth: '2px'
+                        }
+                    }
+                }
+            })
         },
         fontFamily: {
             sans: ['comfortaa', ...defaultTheme.fontFamily.sans],

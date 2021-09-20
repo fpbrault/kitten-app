@@ -1,6 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
-import ReactMarkdown from 'react-markdown';
+import removeMd from 'remove-markdown';
 
 export type PostProps = {
     id: number;
@@ -50,11 +50,11 @@ const Post: React.FC<{ post: PostProps }> = ({ post }) => {
                         {day}
                     </span>
                     <p className="text-base text-grey-darker">
-                        <ReactMarkdown>{post.content.slice(0, 220) + ' ...'}</ReactMarkdown>
+                        {removeMd(post.content).slice(0, 200) + ' ...'}
                     </p>
                     <Link href={'/post/' + post.id}>
                         <a className="px-4 mx-auto mt-4 text-center text-gray-500 transition-colors bg-transparent border border-gray-400 rounded cursor-pointer h-7 focus:outline-none hover:border-transparent hover:bg-secondary hover:text-white">
-                            READ MORE
+                            Lire la suite →
                         </a>
                     </Link>
                 </div>
